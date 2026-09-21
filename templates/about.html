@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Learn about Jemea, a student communication platform designed to give students a voice."
+    >
+
+    <title>About Jemea | Student Communication Platform</title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+
+            background: #f7f8fa;
+            color: #171717;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        nav {
+            width: 100%;
+            min-height: 74px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-bottom: 1px solid #e6e6e6;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: relative;
+            z-index: 100;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            font-weight: 800;
+        }
+
+        .brand-mark {
+            width: 37px;
+            height: 37px;
+
+            background: #171717;
+            color: white;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+            font-weight: 800;
+
+            box-shadow:
+                0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .brand-name {
+            font-size: 24px;
+            letter-spacing: -0.8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            color: #666;
+
+            font-size: 14px;
+            font-weight: 500;
+
+            padding: 10px 13px;
+
+            border-radius: 8px;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #171717;
+            background: #f2f2f2;
+        }
+
+        .nav-links .nav-status {
+            color: white;
+            background: #171717;
+
+            margin-left: 5px;
+            padding: 10px 17px;
+        }
+
+        .nav-links .nav-status:hover {
+            background: #333;
+            color: white;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .page-hero {
+            width: 88%;
+            max-width: 1050px;
+
+            margin: 0 auto;
+
+            padding: 105px 0 90px;
+
+            text-align: center;
+
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+
+            background: white;
+
+            border: 1px solid #e1e1e1;
+
+            border-radius: 50px;
+
+            padding: 8px 15px;
+
+            color: #666;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            margin-bottom: 24px;
+
+            box-shadow:
+                0 5px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .hero-dot {
+            width: 8px;
+            height: 8px;
+
+            background: #171717;
+
+            border-radius: 50%;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(44px, 6vw, 70px);
+
+            line-height: 1.04;
+
+            letter-spacing: -3.5px;
+
+            margin-bottom: 25px;
+        }
+
+        .page-hero h1 span {
+            color: #777;
+        }
+
+        .page-hero p {
+            max-width: 700px;
+
+            margin: 0 auto;
+
+            color: #707070;
+
+            font-size: 17px;
+
+            line-height: 1.85;
+        }
+
+
+        /* =====================================================
+           GENERAL SECTIONS
+        ===================================================== */
+
+        .section {
+            width: 88%;
+            max-width: 1100px;
+
+            margin: 0 auto 105px;
+        }
+
+        .section-heading {
+            margin-bottom: 35px;
+        }
+
+        .section-heading.center {
+            text-align: center;
+        }
+
+        .section-heading h2 {
+            font-size: 35px;
+
+            line-height: 1.15;
+
+            letter-spacing: -1.3px;
+
+            margin-bottom: 9px;
+        }
+
+        .section-heading p {
+            color: #888;
+
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           MISSION
+        ===================================================== */
+
+        .mission {
+            display: grid;
+
+            grid-template-columns: 0.85fr 1.15fr;
+
+            gap: 20px;
+        }
+
+        .mission-card {
+            background: #171717;
+
+            color: white;
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            min-height: 350px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            position: relative;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 20px 45px rgba(0, 0, 0, 0.08);
+        }
+
+        .mission-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 50%;
+
+            right: -150px;
+            top: -130px;
+        }
+
+        .mission-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 210px;
+            height: 210px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 50%;
+
+            right: -90px;
+            bottom: -100px;
+        }
+
+        .mission-icon {
+            width: 57px;
+            height: 57px;
+
+            background: rgba(255, 255, 255, 0.1);
+
+            border-radius: 15px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 27px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-card h3 {
+            position: relative;
+            z-index: 2;
+
+            font-size: 28px;
+
+            line-height: 1.25;
+
+            letter-spacing: -0.8px;
+
+            max-width: 330px;
+        }
+
+        .mission-card p {
+            position: relative;
+            z-index: 2;
+
+            color: #aaa;
+
+            font-size: 14px;
+
+            max-width: 360px;
+
+            line-height: 1.8;
+        }
+
+        .mission-text {
+            background: white;
+
+            border: 1px solid #dfdfdf;
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            min-height: 350px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .mission-text h3 {
+            font-size: 24px;
+
+            margin-bottom: 17px;
+
+            letter-spacing: -0.6px;
+        }
+
+        .mission-text p {
+            color: #707070;
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+            margin-bottom: 15px;
+        }
+
+        .mission-text strong {
+            color: #171717;
+        }
+
+
+        /* =====================================================
+           VALUES
+        ===================================================== */
+
+        .values-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .value-card {
+            background: white;
+
+            border: 1px solid #dfdfdf;
+
+            border-radius: 17px;
+
+            padding: 30px;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.07);
+
+            border-color: #d4d4d4;
+        }
+
+        .value-icon {
+            width: 50px;
+            height: 50px;
+
+            background: #f1f1f1;
+
+            border-radius: 14px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 23px;
+
+            margin-bottom: 21px;
+        }
+
+        .value-card h3 {
+            font-size: 18px;
+
+            margin-bottom: 9px;
+
+            letter-spacing: -0.3px;
+        }
+
+        .value-card p {
+            color: #777;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           PLATFORM FLOW
+        ===================================================== */
+
+        .flow-container {
+            background: white;
+
+            border: 1px solid #dfdfdf;
+
+            border-radius: 20px;
+
+            padding: 40px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .flow {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 25px;
+
+            position: relative;
+        }
+
+        .flow::before {
+            content: "";
+
+            position: absolute;
+
+            top: 25px;
+
+            left: 16%;
+
+            right: 16%;
+
+            height: 1px;
+
+            background: #dedede;
+
+            z-index: 0;
+        }
+
+        .flow-item {
+            text-align: center;
+
+            position: relative;
+
+            z-index: 1;
+        }
+
+        .flow-number {
+            width: 51px;
+            height: 51px;
+
+            background: #171717;
+
+            color: white;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 17px;
+
+            font-weight: 700;
+
+            border: 5px solid white;
+
+            box-shadow:
+                0 0 0 1px #171717;
+        }
+
+        .flow-item h3 {
+            font-size: 17px;
+
+            margin-bottom: 6px;
+        }
+
+        .flow-item p {
+            color: #888;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            max-width: 220px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           EXTRA HIGHLIGHT
+        ===================================================== */
+
+        .highlight {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+        }
+
+        .highlight-card {
+            background: #f0f0f0;
+
+            border-radius: 17px;
+
+            padding: 28px;
+
+            border: 1px solid #e0e0e0;
+        }
+
+        .highlight-card h3 {
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+        .highlight-card p {
+            color: #707070;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+        }
+
+
+        /* =====================================================
+           CTA
+        ===================================================== */
+
+        .cta {
+            width: 88%;
+            max-width: 1100px;
+
+            margin: 0 auto 95px;
+
+            background: #171717;
+
+            color: white;
+
+            border-radius: 22px;
+
+            padding: 72px 30px;
+
+            text-align: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 25px 55px rgba(0, 0, 0, 0.12);
+        }
+
+        .cta::before,
+        .cta::after {
+            content: "";
+
+            position: absolute;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            border-radius: 50%;
+        }
+
+        .cta::before {
+            width: 290px;
+            height: 290px;
+
+            left: -145px;
+            top: -170px;
+        }
+
+        .cta::after {
+            width: 230px;
+            height: 230px;
+
+            right: -115px;
+            bottom: -135px;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta h2 {
+            font-size: 39px;
+
+            letter-spacing: -1.4px;
+
+            margin-bottom: 11px;
+        }
+
+        .cta p {
+            color: #aaa;
+
+            font-size: 15px;
+
+            margin-bottom: 29px;
+        }
+
+        .cta-buttons {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 11px;
+
+            flex-wrap: wrap;
+        }
+
+        .cta-primary,
+        .cta-secondary {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 13px 21px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 650;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .cta-primary {
+            background: white;
+
+            color: #171717;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-secondary {
+            color: white;
+
+            border: 1px solid #555;
+        }
+
+        .cta-secondary:hover {
+            background: #292929;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: white;
+
+            border-top: 1px solid #e4e4e4;
+
+            padding: 36px 6%;
+
+            text-align: center;
+
+            color: #888;
+
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            color: #171717;
+
+            font-size: 17px;
+
+            font-weight: 750;
+
+            margin-bottom: 8px;
+        }
+
+        .footer-links {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-top: 11px;
+
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #777;
+
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: #171717;
+        }
+
+        .footer-separator {
+            color: #ccc;
+        }
+
+
+        /* =====================================================
+           ANIMATION
+        ===================================================== */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .mission {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow {
+                grid-template-columns: 1fr;
+
+                gap: 32px;
+            }
+
+            .flow::before {
+                display: none;
+            }
+
+            .highlight {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-container {
+                padding: 30px 20px;
+            }
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 650px) {
+
+            nav {
+                padding: 15px 5%;
+
+                flex-direction: column;
+
+                gap: 13px;
+            }
+
+            .nav-links {
+                width: 100%;
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+
+                gap: 3px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+
+                padding: 8px 9px;
+            }
+
+            .nav-links .nav-status {
+                margin-left: 2px;
+
+                padding: 9px 12px;
+            }
+
+            .page-hero {
+                width: 90%;
+
+                padding: 70px 0 65px;
+            }
+
+            .page-hero h1 {
+                font-size: 43px;
+
+                letter-spacing: -2.2px;
+            }
+
+            .page-hero p {
+                font-size: 15px;
+            }
+
+            .section {
+                width: 90%;
+
+                margin-bottom: 80px;
+            }
+
+            .section-heading h2 {
+                font-size: 30px;
+            }
+
+            .mission-card,
+            .mission-text {
+                padding: 29px;
+
+                min-height: auto;
+            }
+
+            .mission-card {
+                gap: 45px;
+            }
+
+            .value-card {
+                padding: 26px;
+            }
+
+            .cta {
+                width: 90%;
+
+                padding: 56px 20px;
+
+                margin-bottom: 75px;
+
+                border-radius: 19px;
+            }
+
+            .cta h2 {
+                font-size: 31px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-primary,
+            .cta-secondary {
+                width: 100%;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL PHONES
+        ===================================================== */
+
+        @media (max-width: 380px) {
+
+            .brand-name {
+                font-size: 21px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+
+                padding: 7px;
+            }
+
+            .page-hero h1 {
+                font-size: 38px;
+            }
+
+            .mission-card,
+            .mission-text {
+                padding: 23px;
+            }
+
+            .section-heading h2 {
+                font-size: 27px;
+            }
+
+            .cta h2 {
+                font-size: 28px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    {% include "_flashes.html" %}
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ===================================================== -->
+
+    <nav>
+
+        <a
+            href="{{ url_for('home') }}"
+            class="brand"
+        >
+
+            <span class="brand-mark">
+                J
+            </span>
+
+            <span class="brand-name">
+                JUCAVM MJ JEMEA
+            </span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('about') }}">
+                About
+            </a>
+
+            <a href="{{ url_for('contact') }}">
+                Submit Idea
+            </a>
+
+            <a
+                href="{{ url_for('student_status') }}"
+                class="nav-status"
+            >
+                Check Status
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         HERO
+    ===================================================== -->
+
+    <section class="page-hero">
+
+        <div class="hero-label">
+
+            <span class="hero-dot"></span>
+
+            About Jemea
+
+        </div>
+
+
+        <h1>
+
+            Giving Students
+
+            <span>A Voice.</span>
+
+        </h1>
+
+
+        <p>
+
+            Jemea is a student communication platform
+            designed to make it easier for students to
+            share ideas, suggestions, and feedback while
+            creating a clear path from submission to response.
+
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         MISSION
+    ===================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <h2>
+                Why Jemea Exists
+            </h2>
+
+            <p>
+                Turning student ideas into meaningful communication.
+            </p>
+
+        </div>
+
+
+        <div class="mission">
+
+
+            <!-- DARK CARD -->
+
+            <div class="mission-card">
+
+                <div class="mission-icon">
+                    💡
+                </div>
+
+
+                <h3>
+
+                    Every student
+                    has something
+                    valuable to say.
+
+                </h3>
+
+
+                <p>
+
+                    Jemea creates a simple space where those
+                    ideas can be shared and heard.
+
+                </p>
+
+            </div>
+
+
+            <!-- TEXT CARD -->
+
+            <div class="mission-text">
+
+                <h3>
+                    Our Mission
+                </h3>
+
+
+                <p>
+
+                    The purpose of Jemea is to create a more
+                    organized and accessible communication
+                    channel between students and the people
+                    responsible for reviewing their ideas.
+
+                </p>
+
+
+                <p>
+
+                    Instead of ideas being forgotten or lost,
+                    students can submit them through one
+                    structured platform and follow their
+                    progress.
+
+                </p>
+
+
+                <p>
+
+                    Jemea is built around a simple principle:
+
+                    <strong>
+                        students should have a voice in the
+                        environment they are part of.
+                    </strong>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VALUES
+    ===================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading center">
+
+            <h2>
+                What Jemea Stands For
+            </h2>
+
+            <p>
+                The principles behind the platform.
+            </p>
+
+        </div>
+
+
+        <div class="values-grid">
+
+
+            <!-- VALUE 1 -->
+
+            <div class="value-card">
+
+                <div class="value-icon">
+                    🗣️
+                </div>
+
+                <h3>
+                    Student Voice
+                </h3>
+
+                <p>
+
+                    Students should have a clear opportunity
+                    to express their ideas, concerns,
+                    suggestions, and feedback.
+
+                </p>
+
+            </div>
+
+
+            <!-- VALUE 2 -->
+
+            <div class="value-card">
+
+                <div class="value-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    Transparency
+                </h3>
+
+                <p>
+
+                    Students can check the status of their
+                    submissions instead of wondering what
+                    happened after sending an idea.
+
+                </p>
+
+            </div>
+
+
+            <!-- VALUE 3 -->
+
+            <div class="value-card">
+
+                <div class="value-icon">
+                    🤝
+                </div>
+
+                <h3>
+                    Better Communication
+                </h3>
+
+                <p>
+
+                    Jemea aims to make communication more
+                    organized, accessible, and useful for
+                    everyone involved.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- EXTRA HIGHLIGHTS -->
+
+        <div class="highlight">
+
+            <div class="highlight-card">
+
+                <h3>
+                    📌 One Organized Platform
+                </h3>
+
+                <p>
+
+                    Students have one place to submit
+                    their ideas and follow what happens
+                    after submission.
+
+                </p>
+
+            </div>
+
+
+            <div class="highlight-card">
+
+                <h3>
+                    🔐 A Clear Communication Process
+                </h3>
+
+                <p>
+
+                    Every submission follows a structured
+                    process that makes communication easier
+                    to understand.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         HOW THE PLATFORM WORKS
+    ===================================================== -->
+
+    <section class="section">
+
+        <div class="section-heading center">
+
+            <h2>
+                From Idea to Response
+            </h2>
+
+            <p>
+                Jemea keeps the communication process simple.
+            </p>
+
+        </div>
+
+
+        <div class="flow-container">
+
+            <div class="flow">
+
+
+                <!-- FLOW 1 -->
+
+                <div class="flow-item">
+
+                    <div class="flow-number">
+                        1
+                    </div>
+
+                    <h3>
+                        Student Submits
+                    </h3>
+
+                    <p>
+
+                        A student shares an idea,
+                        suggestion, or feedback.
+
+                    </p>
+
+                </div>
+
+
+                <!-- FLOW 2 -->
+
+                <div class="flow-item">
+
+                    <div class="flow-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Jemea Reviews
+                    </h3>
+
+                    <p>
+
+                        The submission is received
+                        and reviewed.
+
+                    </p>
+
+                </div>
+
+
+                <!-- FLOW 3 -->
+
+                <div class="flow-item">
+
+                    <div class="flow-number">
+                        3
+                    </div>
+
+                    <h3>
+                        Student Receives
+                    </h3>
+
+                    <p>
+
+                        The student can check the
+                        status and see the response.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CTA
+    ===================================================== -->
+
+    <section class="cta">
+
+        <div class="cta-content">
+
+            <h2>
+                Your idea matters.
+            </h2>
+
+            <p>
+                Share it with Jemea and make your voice heard.
+            </p>
+
+
+            <div class="cta-buttons">
+
+                <a
+                    href="{{ url_for('contact') }}"
+                    class="cta-primary"
+                >
+                    💡
+                    Submit Your Idea
+                </a>
+
+
+                <a
+                    href="{{ url_for('student_status') }}"
+                    class="cta-secondary"
+                >
+                    🔎
+                    Check Status
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
+
+    <footer>
+
+        <div class="footer-brand">
+            JUCAVM MJ Jemea
+        </div>
+
+        <p>
+            © 2026 JUCAVM MJ Jemea. All rights reserved.
+        </p>
+
+
+        <div class="footer-links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <span class="footer-separator">
+                •
+            </span>
+
+            <a href="{{ url_for('about') }}">
+                About
+            </a>
+
+            <span class="footer-separator">
+                •
+            </span>
+
+            <a href="{{ url_for('contact') }}">
+                Submit Idea
+            </a>
+
+            <span class="footer-separator">
+                •
+            </span>
+
+            <a href="{{ url_for('student_status') }}">
+                Check Status
+            </a>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

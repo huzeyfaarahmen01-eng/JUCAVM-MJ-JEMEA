@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Audit Logs - Jemea</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                #f4f7fb;
+
+            color:
+                #1f2937;
+
+            min-height: 100vh;
+        }
+
+        .header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #1e3a8a
+                );
+
+            color: white;
+
+            padding:
+                22px 30px;
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color:
+                #cbd5e1;
+
+            font-size: 14px;
+        }
+
+        .back-btn {
+            text-decoration: none;
+
+            background:
+                rgba(255,255,255,0.12);
+
+            color: white;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.25);
+
+            padding:
+                10px 17px;
+
+            border-radius:
+                8px;
+
+            font-size: 14px;
+
+            transition:
+                0.2s;
+        }
+
+        .back-btn:hover {
+            background:
+                rgba(255,255,255,0.22);
+        }
+
+        .container {
+            width:
+                min(1400px, 94%);
+
+            margin:
+                30px auto;
+        }
+
+        .summary {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap: 15px;
+
+            margin-bottom:
+                20px;
+
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            background:
+                white;
+
+            border-radius:
+                12px;
+
+            padding:
+                18px 22px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(15, 23, 42, 0.07);
+
+            border:
+                1px solid #e5e7eb;
+        }
+
+        .summary-card strong {
+            display: block;
+
+            font-size: 24px;
+
+            color:
+                #1d4ed8;
+
+            margin-bottom:
+                4px;
+        }
+
+        .summary-card span {
+            font-size: 13px;
+
+            color:
+                #64748b;
+        }
+
+        .filters {
+            background:
+                white;
+
+            padding:
+                20px;
+
+            border-radius:
+                12px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(15, 23, 42, 0.07);
+
+            border:
+                1px solid #e5e7eb;
+
+            margin-bottom:
+                20px;
+        }
+
+        .filters form {
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1.5fr auto auto;
+
+            gap:
+                12px;
+
+            align-items:
+                end;
+        }
+
+        .field {
+            display: flex;
+
+            flex-direction:
+                column;
+
+            gap: 6px;
+        }
+
+        .field label {
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+
+            color:
+                #475569;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+
+            padding:
+                11px 12px;
+
+            border:
+                1px solid #cbd5e1;
+
+            border-radius:
+                8px;
+
+            font-size:
+                14px;
+
+            outline: none;
+
+            background:
+                white;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color:
+                #2563eb;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(37,99,235,0.1);
+        }
+
+        .btn {
+            border: none;
+
+            padding:
+                11px 17px;
+
+            border-radius:
+                8px;
+
+            cursor: pointer;
+
+            font-size:
+                14px;
+
+            font-weight:
+                600;
+
+            text-decoration:
+                none;
+
+            display:
+                inline-flex;
+
+            justify-content:
+                center;
+
+            align-items:
+                center;
+
+            white-space:
+                nowrap;
+        }
+
+        .search-btn {
+            background:
+                #2563eb;
+
+            color:
+                white;
+        }
+
+        .search-btn:hover {
+            background:
+                #1d4ed8;
+        }
+
+        .clear-btn {
+            background:
+                #e2e8f0;
+
+            color:
+                #334155;
+        }
+
+        .clear-btn:hover {
+            background:
+                #cbd5e1;
+        }
+
+        .table-wrapper {
+            background:
+                white;
+
+            border-radius:
+                12px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(15, 23, 42, 0.07);
+
+            border:
+                1px solid #e5e7eb;
+
+            overflow:
+                hidden;
+        }
+
+        .table-header {
+            padding:
+                18px 20px;
+
+            border-bottom:
+                1px solid #e5e7eb;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                10px;
+
+            flex-wrap:
+                wrap;
+        }
+
+        .table-header h2 {
+            font-size:
+                18px;
+
+            color:
+                #0f172a;
+        }
+
+        .table-header span {
+            font-size:
+                13px;
+
+            color:
+                #64748b;
+        }
+
+        .table-scroll {
+            overflow-x:
+                auto;
+        }
+
+        table {
+            width:
+                100%;
+
+            border-collapse:
+                collapse;
+
+            min-width:
+                950px;
+        }
+
+        th {
+            background:
+                #f8fafc;
+
+            color:
+                #475569;
+
+            font-size:
+                12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.04em;
+
+            text-align:
+                left;
+
+            padding:
+                14px 16px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            white-space:
+                nowrap;
+        }
+
+        td {
+            padding:
+                14px 16px;
+
+            border-bottom:
+                1px solid #f1f5f9;
+
+            vertical-align:
+                top;
+
+            font-size:
+                13px;
+        }
+
+        tbody tr:hover {
+            background:
+                #f8fafc;
+        }
+
+        .user-badge,
+        .action-badge {
+            display:
+                inline-block;
+
+            padding:
+                5px 9px;
+
+            border-radius:
+                999px;
+
+            font-size:
+                11px;
+
+            font-weight:
+                700;
+
+            text-transform:
+                capitalize;
+        }
+
+        .admin-badge {
+            background:
+                #dbeafe;
+
+            color:
+                #1d4ed8;
+        }
+
+        .student-badge {
+            background:
+                #dcfce7;
+
+            color:
+                #15803d;
+        }
+
+        .action-badge {
+            background:
+                #f1f5f9;
+
+            color:
+                #334155;
+
+            text-transform:
+                none;
+        }
+
+        .details {
+            max-width:
+                420px;
+
+            line-height:
+                1.5;
+
+            color:
+                #475569;
+
+            word-break:
+                break-word;
+        }
+
+        .ip {
+            font-family:
+                monospace;
+
+            color:
+                #475569;
+        }
+
+        .date {
+            white-space:
+                nowrap;
+
+            color:
+                #64748b;
+        }
+
+        .empty {
+            text-align:
+                center;
+
+            padding:
+                60px 20px;
+
+            color:
+                #64748b;
+        }
+
+        .empty strong {
+            display:
+                block;
+
+            font-size:
+                18px;
+
+            color:
+                #334155;
+
+            margin-bottom:
+                6px;
+        }
+
+        .pagination {
+            padding:
+                18px 20px;
+
+            display:
+                flex;
+
+            justify-content:
+                space-between;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            flex-wrap:
+                wrap;
+        }
+
+        .page-info {
+            color:
+                #64748b;
+
+            font-size:
+                13px;
+        }
+
+        .page-buttons {
+            display:
+                flex;
+
+            gap:
+                8px;
+        }
+
+        .page-btn {
+            text-decoration:
+                none;
+
+            padding:
+                8px 13px;
+
+            border-radius:
+                7px;
+
+            background:
+                #e2e8f0;
+
+            color:
+                #334155;
+
+            font-size:
+                13px;
+
+            font-weight:
+                600;
+        }
+
+        .page-btn:hover {
+            background:
+                #cbd5e1;
+        }
+
+        .page-btn.disabled {
+            opacity:
+                0.45;
+
+            pointer-events:
+                none;
+        }
+
+        @media (max-width: 900px) {
+
+            .filters form {
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .field:first-child {
+                grid-column:
+                    1 / -1;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding:
+                    20px;
+            }
+
+            .header h1 {
+                font-size:
+                    22px;
+            }
+
+            .container {
+                width:
+                    92%;
+
+                margin:
+                    20px auto;
+            }
+
+            .filters form {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .field:first-child {
+                grid-column:
+                    auto;
+            }
+
+            .btn {
+                width:
+                    100%;
+            }
+
+            .summary-card {
+                width:
+                    100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <div>
+            <h1>Audit Logs</h1>
+
+            <p>
+                Monitor important security and system activities
+            </p>
+        </div>
+
+        <a
+            href="{{ url_for('admin') }}"
+            class="back-btn"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </header>
+
+
+    <main class="container">
+
+        <section class="summary">
+
+            <div class="summary-card">
+
+                <strong>
+                    {{ total_logs }}
+                </strong>
+
+                <span>
+                    Total matching logs
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <section class="filters">
+
+            <form method="GET">
+
+                <div class="field">
+
+                    <label for="search">
+                        Search
+                    </label>
+
+                    <input
+                        type="text"
+                        id="search"
+                        name="search"
+                        value="{{ search }}"
+                        placeholder="Search user ID, action, details or IP..."
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="user_type">
+                        User Type
+                    </label>
+
+                    <select
+                        id="user_type"
+                        name="user_type"
+                    >
+
+                        <option value="">
+                            All users
+                        </option>
+
+                        <option
+                            value="admin"
+                            {% if user_type == "admin" %}
+                                selected
+                            {% endif %}
+                        >
+                            Admin
+                        </option>
+
+                        <option
+                            value="student"
+                            {% if user_type == "student" %}
+                                selected
+                            {% endif %}
+                        >
+                            Student
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="action">
+                        Action
+                    </label>
+
+                    <select
+                        id="action"
+                        name="action"
+                    >
+
+                        <option value="">
+                            All actions
+                        </option>
+
+                        {% for item in actions %}
+
+                            <option
+                                value="{{ item }}"
+                                {% if action == item %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ item }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn search-btn"
+                >
+                    Search
+                </button>
+
+
+                <a
+                    href="{{ url_for('admin_audit_logs') }}"
+                    class="btn clear-btn"
+                >
+                    Clear
+                </a>
+
+            </form>
+
+        </section>
+
+
+        <section class="table-wrapper">
+
+            <div class="table-header">
+
+                <h2>
+                    Activity History
+                </h2>
+
+                <span>
+                    Page {{ page }} of {{ total_pages }}
+                </span>
+
+            </div>
+
+
+            {% if logs %}
+
+                <div class="table-scroll">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Date / Time
+                                </th>
+
+                                <th>
+                                    User
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                                <th>
+                                    Details
+                                </th>
+
+                                <th>
+                                    IP Address
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            {% for log in logs %}
+
+                                <tr>
+
+                                    <td class="date">
+                                        {{ log[6] }}
+                                    </td>
+
+
+                                    <td>
+
+                                        {% if log[1] == "admin" %}
+
+                                            <span
+                                                class="user-badge admin-badge"
+                                            >
+                                                Admin
+                                            </span>
+
+                                        {% else %}
+
+                                            <span
+                                                class="user-badge student-badge"
+                                            >
+                                                Student
+                                            </span>
+
+                                        {% endif %}
+
+                                        <br>
+
+                                        <small>
+                                            ID:
+                                            {{ log[2] or "N/A" }}
+                                        </small>
+
+                                    </td>
+
+
+                                    <td>
+
+                                        <span
+                                            class="action-badge"
+                                        >
+                                            {{ log[3] }}
+                                        </span>
+
+                                    </td>
+
+
+                                    <td class="details">
+
+                                        {{ log[4] or "No details provided." }}
+
+                                    </td>
+
+
+                                    <td class="ip">
+
+                                        {{ log[5] or "unknown" }}
+
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <div class="pagination">
+
+                    <div class="page-info">
+
+                        Showing page
+                        <strong>{{ page }}</strong>
+                        of
+                        <strong>{{ total_pages }}</strong>
+
+                    </div>
+
+
+                    <div class="page-buttons">
+
+                        {% if page > 1 %}
+
+                            <a
+                                class="page-btn"
+                                href="{{ url_for(
+                                    'admin_audit_logs',
+                                    search=search,
+                                    user_type=user_type,
+                                    action=action,
+                                    page=page - 1
+                                ) }}"
+                            >
+                                ← Previous
+                            </a>
+
+                        {% else %}
+
+                            <span class="page-btn disabled">
+                                ← Previous
+                            </span>
+
+                        {% endif %}
+
+
+                        {% if page < total_pages %}
+
+                            <a
+                                class="page-btn"
+                                href="{{ url_for(
+                                    'admin_audit_logs',
+                                    search=search,
+                                    user_type=user_type,
+                                    action=action,
+                                    page=page + 1
+                                ) }}"
+                            >
+                                Next →
+                            </a>
+
+                        {% else %}
+
+                            <span class="page-btn disabled">
+                                Next →
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty">
+
+                    <strong>
+                        No audit logs found
+                    </strong>
+
+                    <span>
+                        Try changing your search or filters.
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Profile - Jemea</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    body {
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background:
+            linear-gradient(
+                135deg,
+                #f0fdf4 0%,
+                #f8fafc 50%,
+                #eff6ff 100%
+            );
+
+        color: #1f2937;
+
+        min-height: 100vh;
+    }
+
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+        background:
+            rgba(255, 255, 255, 0.97);
+
+        backdrop-filter:
+            blur(10px);
+
+        border-bottom:
+            1px solid #e5e7eb;
+
+        min-height: 70px;
+
+        padding:
+            15px 7%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 100;
+    }
+
+
+    .brand {
+        font-size: 25px;
+
+        font-weight: 800;
+
+        color: #166534;
+
+        letter-spacing: -0.5px;
+    }
+
+
+    .brand span {
+        color: #22c55e;
+    }
+
+
+    .nav-links {
+        display: flex;
+
+        align-items: center;
+
+        gap: 9px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .nav-btn {
+        text-decoration: none;
+
+        padding:
+            9px 14px;
+
+        border-radius: 9px;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    .dashboard-btn {
+        background: #dcfce7;
+
+        color: #166534;
+    }
+
+
+    .dashboard-btn:hover {
+        background: #bbf7d0;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    .logout-btn {
+        background: #fee2e2;
+
+        color: #b91c1c;
+    }
+
+
+    .logout-btn:hover {
+        background: #fecaca;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .container {
+        width: 92%;
+
+        max-width: 1000px;
+
+        margin:
+            32px auto 55px;
+    }
+
+
+    /* =========================
+       PAGE HEADER
+    ========================= */
+
+    .page-header {
+        background: white;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-left:
+            5px solid #166534;
+
+        border-radius:
+            16px;
+
+        padding:
+            25px 28px;
+
+        margin-bottom:
+            22px;
+
+        box-shadow:
+            0 7px 25px
+            rgba(0, 0, 0, 0.05);
+    }
+
+
+    .page-header h1 {
+        font-size: 27px;
+
+        color: #111827;
+
+        margin-bottom: 7px;
+    }
+
+
+    .page-header p {
+        color: #6b7280;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================
+       PROFILE GRID
+    ========================= */
+
+    .profile-grid {
+        display: grid;
+
+        grid-template-columns:
+            280px 1fr;
+
+        gap: 22px;
+
+        align-items: start;
+    }
+
+
+    /* =========================
+       PROFILE CARD
+    ========================= */
+
+    .profile-card {
+        background: white;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius:
+            15px;
+
+        padding:
+            25px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(0, 0, 0, 0.045);
+
+        text-align: center;
+    }
+
+
+    .avatar {
+        width: 90px;
+
+        height: 90px;
+
+        border-radius: 50%;
+
+        background:
+            linear-gradient(
+                135deg,
+                #dcfce7,
+                #bbf7d0
+            );
+
+        color: #166534;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        margin:
+            0 auto 15px;
+
+        font-size: 34px;
+
+        font-weight: 800;
+
+        border:
+            4px solid #f0fdf4;
+    }
+
+
+    .profile-card h2 {
+        font-size: 19px;
+
+        color: #111827;
+
+        margin-bottom: 5px;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    .profile-email {
+        color: #9ca3af;
+
+        font-size: 12px;
+
+        word-break: break-word;
+
+        line-height: 1.5;
+    }
+
+
+    .account-badge {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 5px;
+
+        margin-top: 12px;
+
+        padding:
+            5px 10px;
+
+        border-radius: 20px;
+
+        background: #dcfce7;
+
+        color: #166534;
+
+        font-size: 10px;
+
+        font-weight: 800;
+    }
+
+
+    .account-badge::before {
+        content: "";
+
+        width: 6px;
+
+        height: 6px;
+
+        border-radius: 50%;
+
+        background: #22c55e;
+    }
+
+
+    .profile-divider {
+        height: 1px;
+
+        background: #e5e7eb;
+
+        margin:
+            22px 0;
+    }
+
+
+    .profile-info {
+        text-align: left;
+    }
+
+
+    .info-item {
+        margin-bottom: 17px;
+    }
+
+
+    .info-item:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .info-label {
+        display: block;
+
+        color: #9ca3af;
+
+        font-size: 10px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.6px;
+
+        margin-bottom: 5px;
+    }
+
+
+    .info-value {
+        color: #374151;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    /* =========================
+       FORM CARD
+    ========================= */
+
+    .form-card {
+        background: white;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius:
+            15px;
+
+        padding:
+            28px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(0, 0, 0, 0.045);
+    }
+
+
+    .form-card h2 {
+        font-size: 20px;
+
+        color: #111827;
+
+        margin-bottom: 6px;
+    }
+
+
+    .form-description {
+        color: #9ca3af;
+
+        font-size: 12px;
+
+        line-height: 1.6;
+
+        margin-bottom: 24px;
+    }
+
+
+    .form-group {
+        margin-bottom: 19px;
+    }
+
+
+    label {
+        display: block;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        color: #374151;
+
+        margin-bottom: 7px;
+    }
+
+
+    input,
+    select {
+        width: 100%;
+
+        padding:
+            11px 13px;
+
+        border:
+            1px solid #d1d5db;
+
+        border-radius:
+            9px;
+
+        outline: none;
+
+        font-size: 13px;
+
+        background: white;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    input:hover,
+    select:hover {
+        border-color:
+            #9ca3af;
+    }
+
+
+    input:focus,
+    select:focus {
+        border-color:
+            #22c55e;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(34, 197, 94, 0.12);
+    }
+
+
+    input[readonly] {
+        background: #f9fafb;
+
+        color: #6b7280;
+
+        cursor: not-allowed;
+    }
+
+
+    .form-row {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 15px;
+    }
+
+
+    .save-btn {
+        border: none;
+
+        background:
+            #166534;
+
+        color: white;
+
+        padding:
+            11px 19px;
+
+        border-radius:
+            9px;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    .save-btn:hover {
+        background:
+            #14532d;
+
+        transform:
+            translateY(-1px);
+
+        box-shadow:
+            0 5px 14px
+            rgba(22, 101, 52, 0.18);
+    }
+
+
+    .save-btn:active {
+        transform:
+            translateY(0);
+    }
+
+
+    /* =========================
+       SECURITY
+    ========================= */
+
+    .password-section {
+        margin-top: 30px;
+
+        padding-top: 25px;
+
+        border-top:
+            1px solid #e5e7eb;
+    }
+
+
+    .security-header {
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .security-icon {
+        width: 34px;
+
+        height: 34px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 9px;
+
+        background:
+            #f3f4f6;
+
+        font-size: 16px;
+    }
+
+
+    .password-section h3 {
+        font-size: 16px;
+
+        color: #111827;
+    }
+
+
+    .password-section p {
+        color: #9ca3af;
+
+        font-size: 12px;
+
+        line-height: 1.6;
+
+        margin-bottom: 15px;
+    }
+
+
+    .password-btn {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 6px;
+
+        text-decoration: none;
+
+        background:
+            #f3f4f6;
+
+        color:
+            #374151;
+
+        padding:
+            10px 14px;
+
+        border-radius:
+            8px;
+
+        font-size:
+            12px;
+
+        font-weight:
+            700;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    .password-btn:hover {
+        background:
+            #e5e7eb;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    /* =========================
+       FLASH
+    ========================= */
+
+    .flash-container {
+        margin-bottom:
+            20px;
+    }
+
+
+    .flash {
+        padding:
+            12px 15px;
+
+        border-radius:
+            9px;
+
+        font-size:
+            12px;
+
+        margin-bottom:
+            8px;
+    }
+
+
+    .flash-success {
+        background:
+            #dcfce7;
+
+        color:
+            #166534;
+
+        border:
+            1px solid #bbf7d0;
+    }
+
+
+    .flash-error {
+        background:
+            #fee2e2;
+
+        color:
+            #991b1b;
+
+        border:
+            1px solid #fecaca;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 750px) {
+
+        .profile-grid {
+            grid-template-columns:
+                1fr;
+        }
+
+        .profile-card {
+            text-align:
+                center;
+        }
+
+        .profile-info {
+            text-align:
+                left;
+        }
+
+    }
+
+
+    @media (max-width: 550px) {
+
+        .navbar {
+            padding:
+                13px 5%;
+
+            flex-direction:
+                column;
+
+            gap:
+                12px;
+        }
+
+
+        .nav-links {
+            width:
+                100%;
+
+            justify-content:
+                center;
+        }
+
+
+        .container {
+            width:
+                94%;
+
+            margin:
+                24px auto 40px;
+        }
+
+
+        .page-header {
+            padding:
+                22px;
+        }
+
+
+        .page-header h1 {
+            font-size:
+                24px;
+        }
+
+
+        .form-card {
+            padding:
+                21px;
+        }
+
+
+        .form-row {
+            grid-template-columns:
+                1fr;
+        }
+
+
+        .save-btn {
+            width:
+                100%;
+        }
+
+
+        .password-btn {
+            width:
+                100%;
+
+            justify-content:
+                center;
+        }
+
+    }
+
+
+    @media (max-width: 380px) {
+
+        .nav-btn {
+            padding:
+                8px 10px;
+
+            font-size:
+                11px;
+        }
+
+
+        .profile-card,
+        .form-card {
+            padding:
+                18px;
+        }
+
+    }
+
+</style>
+   
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="brand">
+        Jemea<span>.</span>
+    </div>
+
+
+    <div class="nav-links">
+
+        <a
+            href="{{ url_for('student_dashboard') }}"
+            class="nav-btn dashboard-btn"
+        >
+            ← Dashboard
+        </a>
+
+
+        <a
+            href="{{ url_for('student_logout') }}"
+            class="nav-btn logout-btn"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+
+    <div class="page-header">
+
+        <h1>My Profile</h1>
+
+        <p>
+            Manage your personal information and account settings.
+        </p>
+
+    </div>
+
+
+    <!-- FLASH MESSAGES -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="flash
+                        {% if category == 'success' %}
+                            flash-success
+                        {% else %}
+                            flash-error
+                        {% endif %}"
+                    >
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <div class="profile-grid">
+
+
+        <!-- PROFILE SUMMARY -->
+
+        <aside class="profile-card">
+
+            <div class="avatar">
+
+                {{ student[1][0]|upper }}
+
+            </div>
+
+
+            <h2>
+                {{ student[1] }}
+            </h2>
+
+
+            <div class="profile-email">
+                {{ student[2] }}
+            </div>
+            <div class="account-badge">
+    Active Student Account
+</div>
+
+
+            <div class="profile-divider"></div>
+
+
+            <div class="profile-info">
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Department
+                    </span>
+
+                    <span class="info-value">
+                        {{ student[3] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Year
+                    </span>
+
+                    <span class="info-value">
+                        {{ student[4] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Account
+                    </span>
+
+                    <span class="info-value">
+                        Student
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </aside>
+
+
+        <!-- EDIT PROFILE -->
+
+        <section class="form-card">
+
+
+            <h2>
+                Personal Information
+            </h2>
+
+
+            <p class="form-description">
+                Update the information associated with your Jemea account.
+            </p>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('student_profile') }}"
+            >
+
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ student[1] }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        value="{{ student[2] }}"
+                        readonly
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label for="department">
+                            Department
+                        </label>
+
+                        <input
+                            type="text"
+                            id="department"
+                            name="department"
+                            value="{{ student[3] }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="year">
+                            Year
+                        </label>
+
+                        <input
+                            type="text"
+                            id="year"
+                            name="year"
+                            value="{{ student[4] }}"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    Save Changes
+                </button>
+
+
+            </form>
+
+<!-- =========================
+     PASSWORD & SECURITY
+========================= -->
+
+<div class="password-section">
+
+    <div class="security-header">
+
+        <div class="security-icon">
+            🔐
+        </div>
+
+        <h3>
+            Password & Security
+        </h3>
+
+    </div>
+
+                <h3>
+                    Password & Security
+                </h3>
+
+                <p>
+                    Change your account password if you want to improve your account security.
+                </p>
+
+
+                <a
+                    href="{{ url_for('student_change_password') }}"
+                    class="password-btn"
+                >
+                    🔐 Change Password
+                </a>
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+</main>
+
+
+</body>
+
+</html>

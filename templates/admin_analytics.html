@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Analytics - Jemea</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 16px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 800;
+            color: #166534;
+        }
+
+        .brand span {
+            color: #22c55e;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .dashboard-btn {
+            background: #ecfdf5;
+            color: #166534;
+        }
+
+        .dashboard-btn:hover {
+            background: #dcfce7;
+        }
+
+        .logout-btn {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .logout-btn:hover {
+            background: #fecaca;
+        }
+
+        .container {
+            width: min(1400px, 94%);
+            margin: 30px auto;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            margin-bottom: 7px;
+            color: #111827;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        /* STAT CARDS */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .stat-title {
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: #111827;
+        }
+
+        .stat-subtitle {
+            margin-top: 7px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .total {
+            border-left: 5px solid #2563eb;
+        }
+
+        .new {
+            border-left: 5px solid #f59e0b;
+        }
+
+        .read {
+            border-left: 5px solid #3b82f6;
+        }
+
+        .replied {
+            border-left: 5px solid #22c55e;
+        }
+
+        /* CHART GRID */
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-bottom: 22px;
+        }
+
+        .chart-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .chart-card.full {
+            grid-column: 1 / -1;
+        }
+
+        .chart-header {
+            margin-bottom: 18px;
+        }
+
+        .chart-header h2 {
+            font-size: 18px;
+            color: #111827;
+            margin-bottom: 5px;
+        }
+
+        .chart-header p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 320px;
+        }
+
+        .small-chart {
+            height: 300px;
+        }
+
+        /* RECENT SUBMISSIONS */
+
+        .recent-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            overflow: hidden;
+        }
+
+        .recent-header {
+            margin-bottom: 18px;
+        }
+
+        .recent-header h2 {
+            font-size: 19px;
+            margin-bottom: 5px;
+        }
+
+        .recent-header p {
+            font-size: 13px;
+            color: #9ca3af;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th {
+            text-align: left;
+            background: #f9fafb;
+            color: #6b7280;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            padding: 13px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        td {
+            padding: 14px 13px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
+        }
+
+        .student-name {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .student-email {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 3px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .status-new {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-read {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .status-replied {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #9ca3af;
+        }
+
+        footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+            padding: 30px 0;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1000px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-card.full {
+                grid-column: auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 14px 16px;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+
+            .nav-actions {
+                gap: 5px;
+            }
+
+            .nav-btn {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .container {
+                width: 92%;
+                margin: 22px auto;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .chart-card,
+            .recent-card {
+                padding: 16px;
+            }
+
+            .chart-container {
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="brand">
+        Jemea<span>.</span>
+    </div>
+
+    <div class="nav-actions">
+
+        <a href="{{ url_for('admin') }}"
+           class="nav-btn dashboard-btn">
+            ← Dashboard
+        </a>
+
+        <a href="{{ url_for('logout') }}"
+           class="nav-btn logout-btn">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<main class="container">
+
+    <div class="page-header">
+
+        <h1>Analytics & Reports</h1>
+
+        <p>
+            Overview of student submissions and activity across Jemea.
+        </p>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card total">
+
+            <div class="stat-title">
+                Total Submissions
+            </div>
+
+            <div class="stat-number">
+                {{ total_messages }}
+            </div>
+
+            <div class="stat-subtitle">
+                All submissions received
+            </div>
+
+        </div>
+
+
+        <div class="stat-card new">
+
+            <div class="stat-title">
+                New
+            </div>
+
+            <div class="stat-number">
+                {{ new_messages }}
+            </div>
+
+            <div class="stat-subtitle">
+                Waiting for review
+            </div>
+
+        </div>
+
+
+        <div class="stat-card read">
+
+            <div class="stat-title">
+                Read
+            </div>
+
+            <div class="stat-number">
+                {{ read_messages }}
+            </div>
+
+            <div class="stat-subtitle">
+                Submissions reviewed
+            </div>
+
+        </div>
+
+
+        <div class="stat-card replied">
+
+            <div class="stat-title">
+                Replied
+            </div>
+
+            <div class="stat-number">
+                {{ replied_messages }}
+            </div>
+
+            <div class="stat-subtitle">
+                Students received replies
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FIRST CHART ROW -->
+
+    <section class="charts-grid">
+
+        <div class="chart-card">
+
+            <div class="chart-header">
+
+                <h2>Submission Status</h2>
+
+                <p>
+                    Current status of all submissions
+                </p>
+
+            </div>
+
+            <div class="chart-container small-chart">
+
+                <canvas id="statusChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <div class="chart-header">
+
+                <h2>Submissions by Department</h2>
+
+                <p>
+                    Departments receiving the most submissions
+                </p>
+
+            </div>
+
+            <div class="chart-container">
+
+                <canvas id="departmentChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- YEAR CHART -->
+
+    <section class="charts-grid">
+
+        <div class="chart-card">
+
+            <div class="chart-header">
+
+                <h2>Submissions by Year</h2>
+
+                <p>
+                    Distribution of submissions by student year
+                </p>
+
+            </div>
+
+            <div class="chart-container">
+
+                <canvas id="yearChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+        <div class="chart-card">
+
+            <div class="chart-header">
+
+                <h2>Last 30 Days</h2>
+
+                <p>
+                    Daily submission activity
+                </p>
+
+            </div>
+
+            <div class="chart-container">
+
+                <canvas id="dailyChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MONTHLY ACTIVITY -->
+
+    <section class="charts-grid">
+
+        <div class="chart-card full">
+
+            <div class="chart-header">
+
+                <h2>Monthly Activity</h2>
+
+                <p>
+                    Submission activity over recent months
+                </p>
+
+            </div>
+
+            <div class="chart-container">
+
+                <canvas id="monthlyChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RECENT SUBMISSIONS -->
+
+    <section class="recent-card">
+
+        <div class="recent-header">
+
+            <h2>Recent Submissions</h2>
+
+            <p>
+                The latest student submissions received by Jemea.
+            </p>
+
+        </div>
+
+
+        {% if recent_messages %}
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Student</th>
+                        <th>Department</th>
+                        <th>Year</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for message in recent_messages %}
+
+                    <tr>
+
+                        <td>
+
+                            <div class="student-name">
+                                {{ message[1] }}
+                            </div>
+
+                            <div class="student-email">
+                                {{ message[2] }}
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ message[3] }}
+                        </td>
+
+
+                        <td>
+                            {{ message[4] }}
+                        </td>
+
+
+                        <td>
+
+                            {% if message[7] == "New" %}
+
+                                <span class="status status-new">
+                                    New
+                                </span>
+
+                            {% elif message[7] == "Read" %}
+
+                                <span class="status status-read">
+                                    Read
+                                </span>
+
+                            {% elif message[7] == "Replied" %}
+
+                                <span class="status status-replied">
+                                    Replied
+                                </span>
+
+                            {% else %}
+
+                                <span class="status">
+                                    {{ message[7] }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+                            {{ message[6] }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+            <div class="empty">
+                No submissions available yet.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+<footer>
+    Jemea Admin Analytics
+</footer>
+
+
+<script>
+
+    /* DATA FROM FLASK */
+
+    const departmentLabels =
+        {{ department_labels | tojson }};
+
+    const departmentValues =
+        {{ department_values | tojson }};
+
+    const yearLabels =
+        {{ year_labels | tojson }};
+
+    const yearValues =
+        {{ year_values | tojson }};
+
+    const dailyLabels =
+        {{ daily_labels | tojson }};
+
+    const dailyValues =
+        {{ daily_values | tojson }};
+
+    const monthlyLabels =
+        {{ monthly_labels | tojson }};
+
+    const monthlyValues =
+        {{ monthly_values | tojson }};
+
+
+    /* STATUS CHART */
+
+    new Chart(
+        document.getElementById("statusChart"),
+        {
+            type: "doughnut",
+
+            data: {
+                labels: [
+                    "New",
+                    "Read",
+                    "Replied"
+                ],
+
+                datasets: [{
+                    data: [
+                        {{ new_messages }},
+                        {{ read_messages }},
+                        {{ replied_messages }}
+                    ]
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }
+        }
+    );
+
+
+    /* DEPARTMENT CHART */
+
+    new Chart(
+        document.getElementById("departmentChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: departmentLabels,
+
+                datasets: [{
+                    label: "Submissions",
+                    data: departmentValues
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+    );
+
+
+    /* YEAR CHART */
+
+    new Chart(
+        document.getElementById("yearChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: yearLabels,
+
+                datasets: [{
+                    label: "Students",
+                    data: yearValues
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+    );
+
+
+    /* DAILY CHART */
+
+    new Chart(
+        document.getElementById("dailyChart"),
+        {
+            type: "line",
+
+            data: {
+                labels: dailyLabels,
+
+                datasets: [{
+                    label: "Submissions",
+                    data: dailyValues,
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+    );
+
+
+    /* MONTHLY CHART */
+
+    new Chart(
+        document.getElementById("monthlyChart"),
+        {
+            type: "bar",
+
+            data: {
+                labels: monthlyLabels,
+
+                datasets: [{
+                    label: "Monthly Submissions",
+                    data: monthlyValues
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                },
+
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        }
+    );
+
+</script>
+
+</body>
+</html>

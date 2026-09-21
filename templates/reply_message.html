@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Reply to {{ message[1] }}</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .original-message {
+            background: #f1f3f5;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        .original-message strong {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .email {
+            margin-top: 15px;
+            color: #555;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 180px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 7px;
+            background: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        .cancel {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            text-decoration: none;
+            color: #222;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .cancel {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+    {% include "_flashes.html" %}
+
+
+<div class="container">
+
+    <div class="card">
+
+
+        <h1>
+            Reply to {{ message[1] }}
+        </h1>
+
+
+        {% if error %}
+
+            <div class="error">
+
+                <strong>
+                    ❌ Email could not be sent
+                </strong>
+
+                <br>
+
+                {{ error }}
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="original-message">
+
+            <strong>
+                Original Message:
+            </strong>
+
+            <p>
+                {{ message[2] }}
+            </p>
+
+            <div class="email">
+
+                📧 Reply will be sent to:
+
+                <strong>
+                    {{ message[6] }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <form
+            method="POST"
+            action="{{ url_for('reply_message', message_id=message[0]) }}"
+        >
+
+            <label for="reply">
+                Your Reply
+            </label>
+
+            <textarea
+                id="reply"
+                name="reply"
+                placeholder="Write your reply..."
+                required
+            ></textarea>
+
+
+            <div class="buttons">
+
+                <button type="submit">
+                    Send Reply
+                </button>
+
+
+                <a
+                    href="{{ url_for('view_message', message_id=message[0]) }}"
+                    class="cancel"
+                >
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+</body>
+
+</html>

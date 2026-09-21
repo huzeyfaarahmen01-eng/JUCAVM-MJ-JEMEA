@@ -1,0 +1,110 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Conversation</title>
+
+    <link rel="stylesheet" href="jemea.css">
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Jemea Admin</h1>
+
+        <a href="jemea.html">
+            Back to Dashboard
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <h2>Conversation with Ahmed</h2>
+
+
+        <section class="conversation">
+
+            <div class="student-message">
+
+                <strong>Ahmed</strong>
+
+                <p>
+                    Assalamu Alaikum. I have a question
+                    about tomorrow's class.
+                </p>
+
+                <small>Today, 10:30 AM</small>
+
+            </div>
+
+
+            <div class="admin-message">
+
+                <strong>Jemea Admin</strong>
+
+                <p id="adminReply">
+                    Wa Alaikum Assalam. Please tell us
+                    your question.
+                </p>
+
+                <small>Today, 10:35 AM</small>
+
+            </div>
+            <div class="student-message">
+
+    <strong>Ahmed</strong>
+
+    <p>
+        My question is, what time will the class start?
+    </p>
+
+    <small>Today, 10:37 AM</small>
+
+</div>
+
+<div class="admin-message">
+
+    <strong>Jemea Admin</strong>
+
+    <p>
+        The class will start at 8:00 AM, In Shaa Allah.
+    </p>
+
+    <small>Today, 10:40 AM</small>
+
+</div>
+
+
+
+        </section>
+
+
+        <section class="reply-box">
+
+            <h3>Reply to Ahmed</h3>
+
+            <textarea 
+                id="reply-text"
+                placeholder="Write your reply..."
+                rows="5">
+            </textarea>
+
+            <button id="sendReply">
+                Send Reply
+                
+            </button>
+
+        </section>
+
+    </main>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

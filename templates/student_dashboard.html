@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Dashboard - Jemea</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            background: #111827;
+            min-height: 70px;
+            padding: 15px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .home-btn {
+            color: white;
+            background: #374151;
+        }
+
+        .home-btn:hover {
+            background: #4b5563;
+        }
+
+        /* =========================
+           PROFILE BUTTON
+        ========================= */
+
+        .profile-btn {
+            color: white;
+            background: #374151;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .profile-btn:hover {
+            background: #4b5563;
+        }
+
+        /* =========================
+           NOTIFICATIONS
+        ========================= */
+
+        .notification-btn {
+            position: relative;
+            color: white;
+            background: #374151;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .notification-btn:hover {
+            background: #4b5563;
+        }
+
+        .notification-badge {
+            min-width: 20px;
+            height: 20px;
+            padding: 0 6px;
+            border-radius: 20px;
+            background: #ef4444;
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           LOGOUT
+        ========================= */
+
+        .logout-btn {
+            color: white;
+            background: #dc2626;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto 50px;
+        }
+
+        /* =========================
+           WELCOME
+        ========================= */
+
+        .welcome-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #1d4ed8;
+        }
+
+        .welcome-card h1 {
+            font-size: 29px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .welcome-card p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           STUDENT INFORMATION
+        ========================= */
+
+        .student-info {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f7;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: #111827;
+            margin-bottom: 17px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .info-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .info-label {
+            display: block;
+            color: #6b7280;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            color: #111827;
+            font-size: 14px;
+            font-weight: bold;
+            word-break: break-word;
+        }
+
+        /* =========================
+           QUICK ACTIONS
+        ========================= */
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .action-card {
+            background: white;
+            border: 1px solid #eef2f7;
+            border-radius: 14px;
+            padding: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+            transition: 0.2s ease;
+        }
+
+        .action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+        }
+
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .action-profile {
+            background: #dcfce7;
+        }
+
+        .action-notification {
+            background: #fef3c7;
+        }
+
+        .action-content h3 {
+            color: #111827;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .action-content p {
+            color: #6b7280;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* =========================
+           NEW IDEA BUTTON
+        ========================= */
+
+        .new-idea-area {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 25px;
+        }
+
+        .new-idea-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1d4ed8;
+            color: white;
+            text-decoration: none;
+            padding: 12px 19px;
+            border-radius: 9px;
+            font-weight: bold;
+            transition: 0.2s ease;
+        }
+
+        .new-idea-btn:hover {
+            background: #1e40af;
+            transform: translateY(-1px);
+        }
+
+        /* =========================
+           STATISTICS
+        ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 21px;
+            border-radius: 14px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f7;
+            transition: 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .icon-total {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .icon-new {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .icon-read {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .icon-replied {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+/* =========================
+   LATEST ACTIVITY
+========================= */
+
+.latest-activity {
+    background: white;
+    border: 1px solid #eef2f7;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+}
+
+.latest-activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 17px;
+}
+
+.latest-activity-header h2 {
+    color: #111827;
+    font-size: 19px;
+}
+
+.latest-activity-header span {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px;
+    background: #f8fafc;
+    border-radius: 10px;
+    border: 1px solid #eef2f7;
+}
+
+.activity-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.activity-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-title {
+    color: #111827;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.activity-message {
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.activity-date {
+    color: #9ca3af;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.activity-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 7px;
+    color: #1d4ed8;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.activity-link:hover {
+    text-decoration: underline;
+}
+
+.activity-empty {
+    padding: 25px;
+    background: #f8fafc;
+    border-radius: 10px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 12px;
+}
+
+
+
+
+        /* =========================
+           SUBMISSIONS HEADER
+        ========================= */
+
+        .submissions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .submissions-header h2 {
+            font-size: 21px;
+            color: #111827;
+        }
+
+        .submissions-header p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* =========================
+           HISTORY CONTROLS
+        ========================= */
+
+        .history-controls {
+            background: white;
+            padding: 18px;
+            border-radius: 14px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        .history-search {
+            width: 100%;
+            height: 43px;
+            padding: 0 14px 0 38px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            outline: none;
+            font-size: 13px;
+            color: #111827;
+            background: #f9fafb;
+        }
+
+        .history-search:focus {
+            border-color: #1d4ed8;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.08);
+        }
+
+        .status-filter {
+            height: 43px;
+            min-width: 150px;
+            padding: 0 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            background: #f9fafb;
+            color: #374151;
+            font-size: 13px;
+            font-weight: bold;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .status-filter:focus {
+            border-color: #1d4ed8;
+        }
+
+        .clear-filter-btn {
+            height: 43px;
+            padding: 0 15px;
+            border: none;
+            border-radius: 9px;
+            background: #e5e7eb;
+            color: #374151;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .clear-filter-btn:hover {
+            background: #d1d5db;
+        }
+
+        .history-result {
+            margin: -7px 0 15px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        /* =========================
+           SUBMISSIONS
+        ========================= */
+
+        .submissions {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .submission-card {
+            background: white;
+            border-radius: 14px;
+            padding: 23px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f7;
+            transition: 0.2s ease;
+        }
+
+        .submission-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .submission-card.hidden {
+            display: none;
+        }
+
+        .submission-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .submission-number {
+            font-size: 13px;
+            font-weight: bold;
+            color: #6b7280;
+        }
+
+        .submission-date {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 5px;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .status::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-new {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-new::before {
+            background: #f59e0b;
+        }
+
+        .status-read {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-read::before {
+            background: #3b82f6;
+        }
+
+        .status-replied {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-replied::before {
+            background: #22c55e;
+        }
+
+        /* =========================
+           IDEA
+        ========================= */
+
+        .idea-label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+            letter-spacing: 0.4px;
+        }
+
+        .idea-text {
+            color: #374151;
+            line-height: 1.65;
+            font-size: 15px;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* =========================
+           REPLY
+        ========================= */
+
+        .reply-box {
+            margin-top: 17px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border-left: 4px solid #1d4ed8;
+        }
+
+        .reply-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #1d4ed8;
+            margin-bottom: 6px;
+        }
+
+        .reply-text {
+            color: #4b5563;
+            font-size: 14px;
+            line-height: 1.55;
+        }
+
+        .waiting-box {
+            margin-top: 17px;
+            padding: 14px 15px;
+            background: #fffbeb;
+            border-radius: 10px;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .waiting-box span {
+    margin-right: 5px;
+}
+
+.submission-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.submission-card {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.submission-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.07);
+}
+
+        /* =========================
+           CARD FOOTER
+        ========================= */
+
+        .submission-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-top: 19px;
+            padding-top: 17px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .submission-id {
+            color: #9ca3af;
+            font-size: 12px;
+        }
+
+        .conversation-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            background: #166534;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: 0.2s ease;
+        }
+
+        .conversation-btn:hover {
+            background: #14532d;
+        }
+
+        /* =========================
+           NO FILTER RESULTS
+        ========================= */
+
+        .no-filter-results {
+            display: none;
+            background: white;
+            padding: 45px 25px;
+            text-align: center;
+            border-radius: 14px;
+            border: 1px solid #eef2f7;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .no-filter-results.show {
+            display: block;
+        }
+
+        .no-filter-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .no-filter-results h3 {
+            color: #374151;
+            font-size: 17px;
+            margin-bottom: 7px;
+        }
+
+        .no-filter-results p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty {
+            background: white;
+            padding: 65px 30px;
+            text-align: center;
+            border-radius: 14px;
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f7;
+        }
+
+        .empty-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 17px;
+            border-radius: 50%;
+            background: #eff6ff;
+            color: #1d4ed8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 27px;
+        }
+
+        .empty h3 {
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 19px;
+        }
+
+        .empty p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .empty .new-idea-btn {
+            display: inline-flex;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .dashboard-footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+            margin-top: 35px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 950px) {
+
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 750px) {
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .history-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .status-filter,
+            .clear-filter-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                flex-direction: column;
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .container {
+                width: 94%;
+                margin: 25px auto 40px;
+            }
+
+            .welcome-card {
+                padding: 23px;
+            }
+
+            .welcome-card h1 {
+                font-size: 24px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .new-idea-area {
+                justify-content: stretch;
+            }
+
+            .new-idea-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .submissions-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .submission-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .submission-footer {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .conversation-btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .nav-links a {
+                padding: 9px 11px;
+                font-size: 12px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .submission-card {
+                padding: 18px;
+            }
+
+            .action-card {
+                padding: 16px;
+            }
+
+            .history-controls {
+                padding: 14px;
+            }
+        }
+
+
+    </style>
+</head>
+
+
+<body>
+
+    {% include "_flashes.html" %}
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <a
+            href="{{ url_for('student_dashboard') }}"
+            class="logo"
+        >
+            Jemea
+        </a>
+
+
+        <div class="nav-links">
+
+            <a
+                href="{{ url_for('home') }}"
+                class="home-btn"
+            >
+                Home
+            </a>
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="{{ url_for('student_profile') }}"
+                class="profile-btn"
+            >
+                👤 Profile
+            </a>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <a
+                href="{{ url_for('student_notifications') }}"
+                class="notification-btn"
+            >
+                🔔 Notifications
+
+                {% if unread_notifications > 0 %}
+
+                    <span class="notification-badge">
+                        {{ unread_notifications }}
+                    </span>
+
+                {% endif %}
+
+            </a>
+
+
+            <!-- LOGOUT -->
+
+            <a
+                href="{{ url_for('student_logout') }}"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <!-- =========================
+             WELCOME
+        ========================= -->
+
+        <section class="welcome-card">
+
+            <h1>
+                Welcome, {{ student[1] }} 👋
+            </h1>
+
+            <p>
+                Welcome to your Jemea student dashboard.
+                You can submit ideas, follow their progress,
+                and communicate with the administration.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             STUDENT INFORMATION
+        ========================= -->
+
+        <section class="student-info">
+
+            <h2 class="section-title">
+                Student Information
+            </h2>
+
+            <div class="info-grid">
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Name
+                    </span>
+
+                    <span class="info-value">
+                        {{ student[1] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+                    <span class="info-value">
+                        {{ student[2] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Department
+                    </span>
+
+                    <span class="info-value">
+                        {{ student[4] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Year
+                    </span>
+
+                    <span class="info-value">
+                        {{ student[5] }}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             QUICK ACTIONS
+        ========================= -->
+
+        <section class="quick-actions">
+
+
+            <a
+                href="{{ url_for('student_profile') }}"
+                class="action-card"
+            >
+
+                <div class="action-icon action-profile">
+                    👤
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        My Profile
+                    </h3>
+
+                    <p>
+                        Update your personal information
+                        and change your password.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('student_notifications') }}"
+                class="action-card"
+            >
+
+                <div class="action-icon action-notification">
+                    🔔
+                </div>
+
+                <div class="action-content">
+
+                    <h3>
+                        Notifications
+                    </h3>
+
+                    <p>
+                        Check replies and updates
+                        from the administration.
+                    </p>
+
+                </div>
+
+            </a>
+
+
+        </section>
+
+
+        <!-- =========================
+             NEW IDEA
+        ========================= -->
+
+        <div class="new-idea-area">
+
+            <a
+                href="{{ url_for('contact') }}"
+                class="new-idea-btn"
+            >
+                <span>+</span>
+                Submit New Idea
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             STATISTICS
+        ========================= -->
+
+        <section class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-total">
+                    #
+                </div>
+
+                <div class="stat-number">
+                    {{ total_submissions }}
+                </div>
+
+                <div class="stat-label">
+                    Total Submissions
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-new">
+                    !
+                </div>
+
+                <div class="stat-number">
+                    {{ new_submissions }}
+                </div>
+
+                <div class="stat-label">
+                    New
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-read">
+                    ✓
+                </div>
+
+                <div class="stat-number">
+                    {{ read_submissions }}
+                </div>
+
+                <div class="stat-label">
+                    Read
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-replied">
+                    ↗
+                </div>
+
+                <div class="stat-number">
+                    {{ replied_submissions }}
+                </div>
+
+                <div class="stat-label">
+                    Replied
+                </div>
+
+            </div>
+
+
+        </section>
+ <!-- =========================
+     LATEST ACTIVITY
+========================= -->
+
+<section class="latest-activity">
+
+    <div class="latest-activity-header">
+
+        <h2>
+            Latest Activity
+        </h2>
+
+        <span>
+            Recent updates
+        </span>
+
+    </div>
+
+
+    {% if latest_activity %}
+
+        <div class="activity-list">
+
+            {% for activity in latest_activity %}
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+                        🔔
+                    </div>
+
+
+                    <div class="activity-content">
+
+                        <div class="activity-title">
+                            {{ activity[2] }}
+                        </div>
+
+                        <div class="activity-message">
+                            {{ activity[3] }}
+                        </div>
+
+                        <div class="activity-date">
+                            {{ activity[4] }}
+                        </div>
+
+
+                        {% if activity[1] %}
+
+                            <a
+                                href="{{ url_for(
+                                    'student_conversation',
+                                    message_id=activity[1]
+                                ) }}"
+                                class="activity-link"
+                            >
+                                View Conversation →
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="activity-empty">
+            No recent activity yet.
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+        <!-- =========================
+             SUBMISSIONS HEADER
+        ========================= -->
+
+        <div class="submissions-header">
+
+            <div>
+
+                <h2>
+                    My Submissions
+                </h2>
+
+                <p>
+                    Track your submitted ideas and conversations.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             HISTORY CONTROLS
+        ========================= -->
+
+        {% if messages %}
+
+            <section class="history-controls">
+
+                <div class="search-wrapper">
+
+                    <span class="search-icon">
+                        🔎
+                    </span>
+
+                    <input
+                        type="text"
+                        id="submissionSearch"
+                        class="history-search"
+                        placeholder="Search your ideas..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <select
+                    id="statusFilter"
+                    class="status-filter"
+                >
+
+                    <option value="all">
+                        All Statuses
+                    </option>
+
+                    <option value="New">
+                        New
+                    </option>
+
+                    <option value="Read">
+                        Read
+                    </option>
+
+                    <option value="Replied">
+                        Replied
+                    </option>
+
+                </select>
+
+
+                <button
+                    type="button"
+                    id="clearFilters"
+                    class="clear-filter-btn"
+                >
+                    Clear
+                </button>
+
+            </section>
+
+
+            <div
+                id="historyResult"
+                class="history-result"
+            >
+                Showing {{ messages|length }} submission(s)
+            </div>
+
+
+            <!-- =========================
+                 SUBMISSIONS
+            ========================= -->
+<section
+    class="submissions"
+    id="submissionsList"
+>
+
+
+    {% for message in messages %}
+
+
+        <article
+            class="submission-card"
+            data-status="{{ message[7] }}"
+            data-search="{{ message[0] }} {{ message[5] }} {{ message[7] }} {{ message[6] }}"
+        >
+
+
+            <!-- =========================
+                 SUBMISSION HEADER
+            ========================= -->
+
+            <div class="submission-top">
+
+                <div>
+
+                    <div class="submission-number">
+                        Submission #{{ message[0] }}
+                    </div>
+
+                    <div class="submission-date">
+                        📅 Submitted: {{ message[6] }}
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    {% if message[7] == "New" %}
+
+                        <span class="status status-new">
+                            🆕 New
+                        </span>
+
+                    {% elif message[7] == "Read" %}
+
+                        <span class="status status-read">
+                            👁 Read
+                        </span>
+
+                    {% elif message[7] == "Replied" %}
+
+                        <span class="status status-replied">
+                            💬 Replied
+                        </span>
+
+                    {% else %}
+
+                        <span class="status">
+                            {{ message[7] }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 IDEA
+            ========================= -->
+
+            <div class="idea-label">
+                Your Idea
+            </div>
+
+            <div class="idea-text">
+                {{ message[5] }}
+            </div>
+
+
+            <!-- =========================
+                 REPLY
+            ========================= -->
+
+            {% if message[8] %}
+
+                <div class="reply-box">
+
+                    <div class="reply-title">
+                        💬 Latest Admin Reply
+                    </div>
+
+                    <div class="reply-text">
+                        {{ message[8] }}
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="waiting-box">
+
+                    <span>
+                        ⏳
+                    </span>
+
+                    Your submission has been received.
+                    The administration has not replied yet.
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- =========================
+                 FOOTER
+            ========================= -->
+
+            <div class="submission-footer">
+
+                <div class="submission-id">
+                    Jemea Submission #{{ message[0] }}
+                </div>
+
+
+                <a
+                    href="{{ url_for(
+                        'student_conversation',
+                        message_id=message[0]
+                    ) }}"
+                    class="conversation-btn"
+                >
+                    View Conversation →
+                </a>
+
+            </div>
+
+
+        </article>
+
+
+    {% endfor %}
+
+
+</section>
+         
+
+
+            <!-- =========================
+                 NO FILTER RESULTS
+            ========================= -->
+
+            <section
+                id="noFilterResults"
+                class="no-filter-results"
+            >
+
+                <div class="no-filter-icon">
+                    🔎
+                </div>
+
+                <h3>
+                    No matching submissions
+                </h3>
+
+                <p>
+                    Try another search term or change the status filter.
+                </p>
+
+            </section>
+
+
+        {% else %}
+
+
+            <!-- =========================
+                 EMPTY STATE
+            ========================= -->
+
+            <section class="empty">
+
+                <div class="empty-icon">
+                    +
+                </div>
+
+                <h3>
+                    No submissions yet
+                </h3>
+
+                <p>
+                    You haven't submitted an idea yet.
+                    Start by sharing your first idea with Jemea.
+                </p>
+
+                <a
+                    href="{{ url_for('contact') }}"
+                    class="new-idea-btn"
+                >
+                    + Submit Your First Idea
+                </a>
+
+            </section>
+
+        {% endif %}
+
+
+        <!-- =========================
+             FOOTER
+        ========================= -->
+
+        <div class="dashboard-footer">
+            Jemea Student Dashboard
+        </div>
+
+
+    </main>
+
+
+    <!-- =========================
+         SEARCH + FILTER SCRIPT
+    ========================= -->
+
+    {% if messages %}
+
+    <script>
+
+        const searchInput =
+            document.getElementById("submissionSearch");
+
+        const statusFilter =
+            document.getElementById("statusFilter");
+
+        const clearFilters =
+            document.getElementById("clearFilters");
+
+        const cards =
+            document.querySelectorAll(".submission-card");
+
+        const historyResult =
+            document.getElementById("historyResult");
+
+        const noFilterResults =
+            document.getElementById("noFilterResults");
+
+
+        function filterSubmissions() {
+
+            const searchText =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
+
+            const selectedStatus =
+                statusFilter.value;
+
+            let visibleCount = 0;
+
+
+            cards.forEach(function(card) {
+
+                const cardStatus =
+                    card.dataset.status;
+
+                const searchableText =
+                    card.dataset.search.toLowerCase();
+
+
+                const matchesSearch =
+                    searchableText.includes(searchText);
+
+
+                const matchesStatus =
+                    selectedStatus === "all"
+                    ||
+                    cardStatus === selectedStatus;
+
+
+                if (
+                    matchesSearch
+                    &&
+                    matchesStatus
+                ) {
+
+                    card.classList.remove("hidden");
+
+                    visibleCount++;
+
+                } else {
+
+                    card.classList.add("hidden");
+
+                }
+
+            });
+
+
+            historyResult.textContent =
+                "Showing "
+                + visibleCount
+                + " submission(s)";
+
+
+            if (visibleCount === 0) {
+
+                noFilterResults.classList.add("show");
+
+            } else {
+
+                noFilterResults.classList.remove("show");
+
+            }
+
+        }
+
+
+        searchInput.addEventListener(
+            "input",
+            filterSubmissions
+        );
+
+
+        statusFilter.addEventListener(
+            "change",
+            filterSubmissions
+        );
+
+
+        clearFilters.addEventListener(
+            "click",
+            function() {
+
+                searchInput.value = "";
+
+                statusFilter.value = "all";
+
+                filterSubmissions();
+
+            }
+        );
+
+    </script>
+
+    {% endif %}
+
+
+</body>
+
+</html>

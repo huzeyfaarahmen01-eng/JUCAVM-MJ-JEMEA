@@ -1,0 +1,209 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
+}
+
+header {
+    background: #152238;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 40px;
+}
+
+header button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.cards {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+
+    flex: 1;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.card h3 {
+    font-size: 30px;
+    margin: 0;
+}
+
+.card h2 {
+    font-size: 30px;
+}
+
+.messages {
+    margin-top: 40px;
+    .message {
+    background: white;
+    padding: 20px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.student {
+    width: 150px;
+}
+
+.student p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.message-text {
+    flex: 1;
+}
+
+.message-text p {
+    margin: 0;
+}
+
+.message-action {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.message-action span {
+    color: #d97706;
+}
+
+.message-action button {
+    border: none;
+    background: #3157d5;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+}
+
+.message {
+    background: white;
+
+    padding: 20px;
+    margin-bottom: 10px;
+
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Conversation page */
+
+.conversation {
+    margin-top: 20px;
+}
+
+.student-message,
+.admin-message {
+    max-width: 70%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 12px;
+}
+
+.student-message {
+    background: white;
+}
+
+.admin-message {
+    background: #e5edff;
+    margin-left: auto;
+}
+
+.student-message p,
+.admin-message p {
+    margin: 10px 0;
+}
+
+.student-message small,
+.admin-message small {
+    color: #777;
+}
+
+/* Reply area */
+
+.reply-box {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.reply-box textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+}
+
+.reply-box button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #3157d5;
+    color: white;
+    cursor: pointer;
+}
+/* new conservation improvment*/
+.conversation {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.student-message,
+.admin-message {
+    max-width: 65%;
+    padding: 15px 18px;
+    border-radius: 15px;
+}
+
+.student-message {
+    background: white;
+    align-self: flex-start;
+}
+
+.admin-message {
+    background: #e5edff;
+    align-self: flex-end;
+}
+
+.student-message p,
+.admin-message p {
+    margin: 10px 0;
+    line-height: 1.5;
+}

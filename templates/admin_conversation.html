@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Student Conversation - Jemea Admin
+    </title>
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f3f6fa;
+
+            color: #1f2937;
+
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #111827,
+                    #1f2937
+                );
+
+            min-height: 72px;
+
+            padding: 0 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            box-shadow:
+                0 3px 15px rgba(
+                    0,
+                    0,
+                    0,
+                    0.12
+                );
+        }
+
+
+        .logo {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .logo span {
+
+            color: #60a5fa;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .nav-links a {
+
+            text-decoration: none;
+
+            color: white;
+
+            padding: 10px 15px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            transition: 0.2s ease;
+        }
+
+
+        .dashboard-btn {
+
+            background: #374151;
+        }
+
+
+        .dashboard-btn:hover {
+
+            background: #4b5563;
+
+            transform: translateY(-1px);
+        }
+
+
+        .logout-btn {
+
+            background: #dc2626;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #b91c1c;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 32px auto 50px;
+        }
+
+
+        /* =====================================================
+           BACK LINK
+        ===================================================== */
+
+        .back {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 20px;
+
+            color: #1d4ed8;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .back:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ===================================================== */
+
+        .page-header {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 24px;
+
+            margin-bottom: 18px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 25px rgba(
+                    0,
+                    0,
+                    0,
+                    0.06
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+        }
+
+
+        .student-avatar {
+
+            width: 58px;
+
+            height: 58px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #60a5fa
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 24px;
+
+            font-weight: bold;
+
+            flex-shrink: 0;
+
+            box-shadow:
+                0 5px 15px rgba(
+                    29,
+                    78,
+                    216,
+                    0.22
+                );
+        }
+
+
+        .header-title h1 {
+
+            font-size: 24px;
+
+            color: #111827;
+
+            margin-bottom: 5px;
+        }
+
+
+        .header-title p {
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        .conversation-status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 9px 14px;
+
+            border-radius: 999px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+        }
+
+
+        .conversation-status.new {
+
+            background: #fef3c7;
+
+            color: #92400e;
+        }
+
+
+        .conversation-status.read {
+
+            background: #dbeafe;
+
+            color: #1e40af;
+        }
+
+
+        .conversation-status.replied {
+
+            background: #dcfce7;
+
+            color: #166534;
+        }
+
+
+        .conversation-status.other {
+
+            background: #f3f4f6;
+
+            color: #374151;
+        }
+
+
+        .status-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: currentColor;
+        }
+
+
+        /* =====================================================
+           STUDENT INFORMATION
+        ===================================================== */
+
+        .student-card {
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 16px;
+
+            margin-bottom: 18px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px rgba(
+                    0,
+                    0,
+                    0,
+                    0.05
+                );
+        }
+
+
+        .section-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 16px;
+
+            font-size: 16px;
+
+            color: #111827;
+        }
+
+
+        .student-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    minmax(
+                        0,
+                        1fr
+                    )
+                );
+
+            gap: 12px;
+        }
+
+
+        .info-item {
+
+            background: #f8fafc;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 11px;
+
+            padding: 14px;
+        }
+
+
+        .info-label {
+
+            display: block;
+
+            color: #6b7280;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .info-value {
+
+            display: block;
+
+            color: #111827;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           ERROR
+        ===================================================== */
+
+        .error {
+
+            background: #fee2e2;
+
+            color: #991b1b;
+
+            border: 1px solid #fecaca;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 18px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           CONVERSATION CARD
+        ===================================================== */
+
+        .conversation-card {
+
+            background: white;
+
+            border-radius: 16px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px rgba(
+                    0,
+                    0,
+                    0,
+                    0.05
+                );
+
+            overflow: hidden;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =====================================================
+           CONVERSATION HEADER
+        ===================================================== */
+
+        .conversation-header {
+
+            padding: 18px 22px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            background: #fafafa;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .conversation-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .conversation-heading-icon {
+
+            width: 38px;
+
+            height: 38px;
+
+            border-radius: 10px;
+
+            background: #dbeafe;
+
+            color: #1d4ed8;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+        }
+
+
+        .conversation-heading h2 {
+
+            font-size: 17px;
+
+            color: #111827;
+        }
+
+
+        .conversation-heading p {
+
+            margin-top: 2px;
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           DELETE TOOLBAR
+        ===================================================== */
+
+        .delete-toolbar {
+
+            padding: 12px 22px;
+
+            background: #f8fafc;
+
+            border-bottom: 1px solid #e5e7eb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .selection-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .select-all-label {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #374151;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            user-select: none;
+        }
+
+
+        .select-all-label input {
+
+            width: 17px;
+
+            height: 17px;
+
+            cursor: pointer;
+
+            accent-color: #dc2626;
+        }
+
+
+        .selected-count {
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .delete-selected-btn {
+
+            display: none;
+
+            border: none;
+
+            background: #dc2626;
+
+            color: white;
+
+            padding: 9px 14px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+
+        .delete-selected-btn:hover {
+
+            background: #b91c1c;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           CONVERSATION AREA
+        ===================================================== */
+
+        .conversation {
+
+            padding: 25px 22px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+
+            max-height: 620px;
+
+            overflow-y: auto;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #ffffff,
+                    #f9fbfd
+                );
+        }
+
+
+        .conversation::-webkit-scrollbar {
+
+            width: 7px;
+        }
+
+
+        .conversation::-webkit-scrollbar-track {
+
+            background: #f1f5f9;
+        }
+
+
+        .conversation::-webkit-scrollbar-thumb {
+
+            background: #cbd5e1;
+
+            border-radius: 20px;
+        }
+
+
+        /* =====================================================
+           MESSAGE ROW
+        ===================================================== */
+
+        .message-wrapper {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 9px;
+
+            width: 100%;
+        }
+
+
+        .student-wrapper {
+
+            justify-content: flex-start;
+        }
+
+
+        .admin-wrapper {
+
+            justify-content: flex-end;
+        }
+
+
+        /* =====================================================
+           MESSAGE AVATAR
+        ===================================================== */
+
+        .message-avatar {
+
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+
+        .student-avatar-small {
+
+            background: #e0e7ff;
+
+            color: #3730a3;
+        }
+
+
+        .admin-avatar-small {
+
+            background: #dcfce7;
+
+            color: #166534;
+        }
+
+
+        /* =====================================================
+           MESSAGE CHECKBOX
+        ===================================================== */
+
+        .message-select {
+
+            width: 17px;
+
+            height: 17px;
+
+            cursor: pointer;
+
+            accent-color: #dc2626;
+
+            flex-shrink: 0;
+
+            margin-bottom: 8px;
+        }
+
+
+        .student-wrapper .message-select {
+
+            order: 0;
+        }
+
+
+        .admin-wrapper .message-select {
+
+            order: 3;
+        }
+
+
+        /* =====================================================
+           MESSAGE BOX
+        ===================================================== */
+
+        .message-box {
+
+            max-width: 72%;
+
+            padding: 14px 16px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 3px 12px rgba(
+                    0,
+                    0,
+                    0,
+                    0.05
+                );
+
+            border: 1px solid transparent;
+
+            transition:
+                transform 0.18s ease,
+                box-shadow 0.18s ease,
+                border 0.18s ease;
+        }
+
+
+        .message-box:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 16px rgba(
+                    0,
+                    0,
+                    0,
+                    0.07
+                );
+        }
+
+
+        .message-box.selected {
+
+            border-color: #fca5a5;
+
+            box-shadow:
+                0 0 0 3px #fee2e2;
+        }
+
+
+        .student-message {
+
+            background: white;
+
+            border-color: #e5e7eb;
+
+            border-bottom-left-radius: 5px;
+        }
+
+
+        .admin-message {
+
+            background: #eff6ff;
+
+            border-color: #bfdbfe;
+
+            border-bottom-right-radius: 5px;
+        }
+
+
+        .sender {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            margin-bottom: 7px;
+        }
+
+
+        .student-message .sender {
+
+            color: #3730a3;
+        }
+
+
+        .admin-message .sender {
+
+            color: #166534;
+        }
+
+
+        .message-text {
+
+            color: #1f2937;
+
+            font-size: 14px;
+
+            line-height: 1.65;
+
+            white-space: pre-wrap;
+
+            word-wrap: break-word;
+        }
+
+
+        .message-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 6px;
+
+            margin-top: 8px;
+        }
+
+
+        .message-date {
+
+            color: #6b7280;
+
+            font-size: 10px;
+
+            line-height: 1.4;
+        }
+
+
+        .admin-message .message-date {
+
+            color: #64748b;
+        }
+
+
+        /* =====================================================
+           EMPTY CONVERSATION
+        ===================================================== */
+
+        .no-messages {
+
+            padding: 55px 20px;
+
+            text-align: center;
+
+            color: #6b7280;
+        }
+
+
+        .empty-icon {
+
+            width: 62px;
+
+            height: 62px;
+
+            margin: 0 auto 14px;
+
+            border-radius: 50%;
+
+            background: #f1f5f9;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 27px;
+        }
+
+
+        .no-messages h3 {
+
+            color: #374151;
+
+            font-size: 16px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .no-messages p {
+
+            font-size: 13px;
+        }
+
+
+        /* =====================================================
+           REPLY SECTION
+        ===================================================== */
+
+        .reply-section {
+
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 16px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow:
+                0 5px 20px rgba(
+                    0,
+                    0,
+                    0,
+                    0.05
+                );
+        }
+
+
+        .reply-header {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .reply-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .reply-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 10px;
+
+            background: #dcfce7;
+
+            color: #166534;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+        }
+
+
+        .reply-title h2 {
+
+            font-size: 18px;
+
+            color: #111827;
+
+            margin-bottom: 3px;
+        }
+
+
+        .reply-title p {
+
+            color: #6b7280;
+
+            font-size: 12px;
+        }
+
+
+        .reply-recipient {
+
+            padding: 7px 11px;
+
+            border-radius: 8px;
+
+            background: #f3f4f6;
+
+            color: #4b5563;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            max-width: 260px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           TEXTAREA
+        ===================================================== */
+
+        .textarea-wrapper {
+
+            position: relative;
+        }
+
+
+        textarea {
+
+            display: block;
+
+            width: 100%;
+
+            min-height: 125px;
+
+            resize: vertical;
+
+            padding: 15px 16px 34px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 11px;
+
+            background: #fafafa;
+
+            color: #111827;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            outline: none;
+
+            transition:
+                border 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        textarea:focus {
+
+            border-color: #2563eb;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px rgba(
+                    37,
+                    99,
+                    235,
+                    0.10
+                );
+        }
+
+
+        textarea::placeholder {
+
+            color: #9ca3af;
+        }
+
+
+        .character-count {
+
+            position: absolute;
+
+            right: 12px;
+
+            bottom: 10px;
+
+            color: #9ca3af;
+
+            font-size: 11px;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           REPLY FOOTER
+        ===================================================== */
+
+        .reply-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-top: 11px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .reply-tip {
+
+            color: #6b7280;
+
+            font-size: 11px;
+        }
+
+
+        .send-btn {
+
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #166534,
+                    #15803d
+                );
+
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-width: 130px;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        .send-btn:hover {
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 14px rgba(
+                    22,
+                    101,
+                    52,
+                    0.22
+                );
+        }
+
+
+        .send-btn:disabled {
+
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =====================================================
+           FLASH SUPPORT
+        ===================================================== */
+
+        .flash-container {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 20px auto 0;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .student-info {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(
+                            0,
+                            1fr
+                        )
+                    );
+            }
+
+
+            .message-box {
+
+                max-width: 80%;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+
+                padding: 14px 5%;
+
+                min-height: auto;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                gap: 12px;
+            }
+
+
+            .logo {
+
+                text-align: center;
+
+                font-size: 23px;
+            }
+
+
+            .nav-links {
+
+                justify-content: center;
+            }
+
+
+            .nav-links a {
+
+                flex: 1;
+
+                text-align: center;
+
+                padding: 9px 10px;
+            }
+
+
+            .container {
+
+                width: 94%;
+
+                margin-top: 22px;
+            }
+
+
+            .page-header {
+
+                padding: 18px;
+
+                align-items: flex-start;
+            }
+
+
+            .header-left {
+
+                width: 100%;
+            }
+
+
+            .student-avatar {
+
+                width: 48px;
+
+                height: 48px;
+
+                font-size: 20px;
+            }
+
+
+            .header-title h1 {
+
+                font-size: 20px;
+            }
+
+
+            .conversation-status {
+
+                margin-left: 64px;
+            }
+
+
+            .student-info {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .student-card {
+
+                padding: 18px;
+            }
+
+
+            .conversation-header {
+
+                padding: 15px;
+            }
+
+
+            .delete-toolbar {
+
+                padding: 11px 15px;
+
+                align-items: flex-start;
+            }
+
+
+            .delete-selected-btn {
+
+                width: 100%;
+            }
+
+
+            .conversation {
+
+                padding: 20px 12px;
+
+                max-height: 560px;
+            }
+
+
+            .message-box {
+
+                max-width: 84%;
+
+                padding: 12px 13px;
+            }
+
+
+            .message-avatar {
+
+                width: 29px;
+
+                height: 29px;
+
+                font-size: 13px;
+            }
+
+
+            .message-select {
+
+                width: 15px;
+
+                height: 15px;
+            }
+
+
+            .message-text {
+
+                font-size: 13px;
+            }
+
+
+            .reply-section {
+
+                padding: 18px;
+            }
+
+
+            .reply-header {
+
+                flex-direction: column;
+            }
+
+
+            .reply-recipient {
+
+                max-width: 100%;
+            }
+
+
+            .reply-footer {
+
+                align-items: stretch;
+
+                flex-direction: column;
+            }
+
+
+            .send-btn {
+
+                width: 100%;
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            .nav-links {
+
+                flex-direction: column;
+
+                width: 100%;
+            }
+
+
+            .nav-links a {
+
+                width: 100%;
+            }
+
+
+            .header-left {
+
+                align-items: flex-start;
+            }
+
+
+            .conversation-status {
+
+                margin-left: 0;
+            }
+
+
+            .student-wrapper,
+            .admin-wrapper {
+
+                gap: 6px;
+            }
+
+
+            .message-box {
+
+                max-width: 82%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    {% include "_flashes.html" %}
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="{{ url_for('admin') }}"
+            class="logo"
+        >
+            Jemea <span>Admin</span>
+        </a>
+
+
+        <div class="nav-links">
+
+            <a
+                href="{{ url_for('admin') }}"
+                class="dashboard-btn"
+            >
+                ← Dashboard
+            </a>
+
+
+            <a
+                href="{{ url_for('logout') }}"
+                class="logout-btn"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="container">
+
+
+        <a
+            href="{{ url_for('admin') }}"
+            class="back"
+        >
+            ← Back to Admin Dashboard
+        </a>
+
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <section class="page-header">
+
+            <div class="header-left">
+
+                <div class="student-avatar">
+                    👤
+                </div>
+
+
+                <div class="header-title">
+
+                    <h1>
+                        Student Conversation
+                    </h1>
+
+                    <p>
+                        Manage and respond to this student's conversation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% if submission[7] == "New" %}
+
+                <span class="conversation-status new">
+                    <span class="status-dot"></span>
+                    New
+                </span>
+
+            {% elif submission[7] == "Read" %}
+
+                <span class="conversation-status read">
+                    <span class="status-dot"></span>
+                    Read
+                </span>
+
+            {% elif submission[7] == "Replied" %}
+
+                <span class="conversation-status replied">
+                    <span class="status-dot"></span>
+                    Replied
+                </span>
+
+            {% else %}
+
+                <span class="conversation-status other">
+                    <span class="status-dot"></span>
+                    {{ submission[7] }}
+                </span>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- =================================================
+             STUDENT INFORMATION
+        ================================================== -->
+
+        <section class="student-card">
+
+            <div class="section-title">
+
+                <span>
+                    🎓
+                </span>
+
+                <strong>
+                    Student Information
+                </strong>
+
+            </div>
+
+
+            <div class="student-info">
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Student
+                    </span>
+
+                    <span class="info-value">
+                        {{ submission[1] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+                    <span class="info-value">
+                        {{ submission[2] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Department
+                    </span>
+
+                    <span class="info-value">
+                        {{ submission[3] }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Year
+                    </span>
+
+                    <span class="info-value">
+                        {{ submission[4] }}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ERROR
+        ================================================== -->
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             CONVERSATION
+        ================================================== -->
+
+        <section class="conversation-card">
+
+
+            <div class="conversation-header">
+
+                <div class="conversation-heading">
+
+                    <div class="conversation-heading-icon">
+                        💬
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Conversation
+                        </h2>
+
+                        <p>
+                            Messages between the student and Jemea Team
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% if conversation %}
+
+                <!-- =========================================
+                     DELETE TOOLBAR
+                ========================================== -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'admin_delete_conversation_messages',
+                        message_id=submission[0]
+                    ) }}"
+                    id="deleteForm"
+                >
+
+                    <div class="delete-toolbar">
+
+                        <div class="selection-left">
+
+                            <label
+                                class="select-all-label"
+                            >
+
+                                <input
+                                    type="checkbox"
+                                    id="selectAll"
+                                >
+
+                                <span>
+                                    Select All
+                                </span>
+
+                            </label>
+
+
+                            <span
+                                class="selected-count"
+                                id="selectedCount"
+                            >
+                                0 selected
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="delete-selected-btn"
+                            id="deleteSelectedBtn"
+                        >
+                            🗑 Delete Selected
+                        </button>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         MESSAGE LIST
+                    ====================================== -->
+
+                    <div class="conversation">
+
+
+                        {% for item in conversation %}
+
+
+                            {% if item[2] == "student" %}
+
+                                <!-- =========================
+                                     STUDENT MESSAGE
+                                ========================== -->
+
+                                <div
+                                    class="message-wrapper student-wrapper"
+                                >
+
+
+                                    <input
+                                        type="checkbox"
+                                        name="message_ids"
+                                        value="{{ item[0] }}"
+                                        class="message-select"
+                                    >
+
+
+                                    <div
+                                        class="
+                                            message-avatar
+                                            student-avatar-small
+                                        "
+                                    >
+                                        👤
+                                    </div>
+
+
+                                    <div
+                                        class="
+                                            message-box
+                                            student-message
+                                        "
+                                    >
+
+                                        <div class="sender">
+                                            👤
+                                            {{ item[3] }}
+                                        </div>
+
+
+                                        <div class="message-text">
+                                            {{ item[4] }}
+                                        </div>
+
+
+                                        <div class="message-footer">
+
+                                            <span class="message-date">
+                                                {{ item[5] }}
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                            {% else %}
+
+                                <!-- =========================
+                                     ADMIN MESSAGE
+                                ========================== -->
+
+                                <div
+                                    class="message-wrapper admin-wrapper"
+                                >
+
+
+                                    <div
+                                        class="
+                                            message-box
+                                            admin-message
+                                        "
+                                    >
+
+                                        <div class="sender">
+                                            🏫
+                                            Jemea Team
+                                        </div>
+
+
+                                        <div class="message-text">
+                                            {{ item[4] }}
+                                        </div>
+
+
+                                        <div class="message-footer">
+
+                                            <span class="message-date">
+                                                {{ item[5] }}
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div
+                                        class="
+                                            message-avatar
+                                            admin-avatar-small
+                                        "
+                                    >
+                                        🏫
+                                    </div>
+
+
+                                    <input
+                                        type="checkbox"
+                                        name="message_ids"
+                                        value="{{ item[0] }}"
+                                        class="message-select"
+                                    >
+
+                                </div>
+
+                            {% endif %}
+
+
+                        {% endfor %}
+
+
+                    </div>
+
+                </form>
+
+
+            {% else %}
+
+                <!-- =========================================
+                     EMPTY STATE
+                ========================================== -->
+
+                <div class="no-messages">
+
+                    <div class="empty-icon">
+                        💬
+                    </div>
+
+                    <h3>
+                        No conversation messages
+                    </h3>
+
+                    <p>
+                        There are currently no messages in this conversation.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+        <!-- =================================================
+             REPLY SECTION
+        ================================================== -->
+
+        <section class="reply-section">
+
+
+            <div class="reply-header">
+
+                <div class="reply-title">
+
+                    <div class="reply-icon">
+                        ↩
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Reply to Student
+                        </h2>
+
+                        <p>
+                            Your reply will be saved and sent to the student's email.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="reply-recipient">
+
+                    To:
+                    {{ submission[2] }}
+
+                </div>
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'admin_send_message',
+                    message_id=submission[0]
+                ) }}"
+                id="replyForm"
+            >
+
+
+                <div class="textarea-wrapper">
+
+                    <textarea
+                        name="message"
+                        id="replyMessage"
+                        maxlength="5000"
+                        placeholder="Write your reply to the student..."
+                        required
+                    ></textarea>
+
+
+                    <span
+                        class="character-count"
+                        id="characterCount"
+                    >
+                        0 / 5000
+                    </span>
+
+                </div>
+
+
+                <div class="reply-footer">
+
+                    <div class="reply-tip">
+
+                        💡 Tip: Write a clear and helpful response.
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="send-btn"
+                        id="sendButton"
+                    >
+
+                        <span id="sendIcon">
+                            ✈
+                        </span>
+
+                        <span id="sendText">
+                            Send Reply
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =================================================
+           ELEMENTS
+        ================================================= */
+
+        const selectAll =
+            document.getElementById(
+                "selectAll"
+            );
+
+
+        const messageCheckboxes =
+            document.querySelectorAll(
+                ".message-select"
+            );
+
+
+        const selectedCount =
+            document.getElementById(
+                "selectedCount"
+            );
+
+
+        const deleteButton =
+            document.getElementById(
+                "deleteSelectedBtn"
+            );
+
+
+        const deleteForm =
+            document.getElementById(
+                "deleteForm"
+            );
+
+
+        const replyForm =
+            document.getElementById(
+                "replyForm"
+            );
+
+
+        const replyMessage =
+            document.getElementById(
+                "replyMessage"
+            );
+
+
+        const characterCount =
+            document.getElementById(
+                "characterCount"
+            );
+
+
+        const sendButton =
+            document.getElementById(
+                "sendButton"
+            );
+
+
+        const sendText =
+            document.getElementById(
+                "sendText"
+            );
+
+
+        const sendIcon =
+            document.getElementById(
+                "sendIcon"
+            );
+
+
+        /* =================================================
+           UPDATE MESSAGE SELECTION
+        ================================================= */
+
+        function updateSelection() {
+
+            let selected = 0;
+
+
+            messageCheckboxes.forEach(
+                function (checkbox) {
+
+
+                    if (checkbox.checked) {
+
+                        selected++;
+
+                    }
+
+
+                    const messageBox =
+                        checkbox
+                            .parentElement
+                            .querySelector(
+                                ".message-box"
+                            );
+
+
+                    if (messageBox) {
+
+                        if (checkbox.checked) {
+
+                            messageBox.classList.add(
+                                "selected"
+                            );
+
+                        } else {
+
+                            messageBox.classList.remove(
+                                "selected"
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            selectedCount.textContent =
+                selected + " selected";
+
+
+            if (selected > 0) {
+
+                deleteButton.style.display =
+                    "inline-flex";
+
+            } else {
+
+                deleteButton.style.display =
+                    "none";
+
+            }
+
+
+            if (
+                messageCheckboxes.length > 0 &&
+                selected === messageCheckboxes.length
+            ) {
+
+                selectAll.checked = true;
+
+            } else {
+
+                selectAll.checked = false;
+
+            }
+
+        }
+
+
+        /* =================================================
+           SELECT ALL
+        ================================================= */
+
+        if (selectAll) {
+
+            selectAll.addEventListener(
+                "change",
+                function () {
+
+
+                    messageCheckboxes.forEach(
+                        function (checkbox) {
+
+                            checkbox.checked =
+                                selectAll.checked;
+
+                        }
+                    );
+
+
+                    updateSelection();
+
+                }
+            );
+
+        }
+
+
+        /* =================================================
+           INDIVIDUAL CHECKBOXES
+        ================================================= */
+
+        messageCheckboxes.forEach(
+            function (checkbox) {
+
+                checkbox.addEventListener(
+                    "change",
+                    updateSelection
+                );
+
+            }
+        );
+
+
+        /* =================================================
+           DELETE CONFIRMATION
+        ================================================= */
+
+        if (deleteForm) {
+
+            deleteForm.addEventListener(
+                "submit",
+                function (event) {
+
+
+                    let selected = 0;
+
+
+                    messageCheckboxes.forEach(
+                        function (checkbox) {
+
+                            if (checkbox.checked) {
+
+                                selected++;
+
+                            }
+
+                        }
+                    );
+
+
+                    if (selected === 0) {
+
+                        event.preventDefault();
+
+                        alert(
+                            "Please select at least one message."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const confirmed =
+                        confirm(
+                            "Are you sure you want to delete " +
+                            selected +
+                            " selected message(s)?\n\n" +
+                            "This action cannot be undone."
+                        );
+
+
+                    if (!confirmed) {
+
+                        event.preventDefault();
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =================================================
+           CHARACTER COUNTER
+        ================================================= */
+
+        function updateCharacterCount() {
+
+            if (!replyMessage) {
+                return;
+            }
+
+
+            const length =
+                replyMessage.value.length;
+
+
+            characterCount.textContent =
+                length + " / 5000";
+
+
+            if (length >= 4500) {
+
+                characterCount.style.color =
+                    "#dc2626";
+
+            } else {
+
+                characterCount.style.color =
+                    "#9ca3af";
+
+            }
+
+        }
+
+
+        if (replyMessage) {
+
+            replyMessage.addEventListener(
+                "input",
+                updateCharacterCount
+            );
+
+        }
+
+
+        /* =================================================
+           ENTER / SHIFT + ENTER
+        ================================================= */
+
+        if (replyMessage) {
+
+            replyMessage.addEventListener(
+                "keydown",
+                function (event) {
+
+
+                    if (
+                        event.key === "Enter" &&
+                        !event.shiftKey
+                    ) {
+
+                        event.preventDefault();
+
+                        if (
+                            replyMessage.value.trim() !== ""
+                        ) {
+
+                            replyForm.requestSubmit();
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =================================================
+           REPLY SUBMIT
+        ================================================= */
+
+        if (replyForm) {
+
+            replyForm.addEventListener(
+                "submit",
+                function (event) {
+
+
+                    if (
+                        !replyMessage.value.trim()
+                    ) {
+
+                        event.preventDefault();
+
+                        replyMessage.focus();
+
+                        return;
+
+                    }
+
+
+                    sendButton.disabled = true;
+
+
+                    sendIcon.textContent =
+                        "⏳";
+
+
+                    sendText.textContent =
+                        "Sending...";
+
+                }
+            );
+
+        }
+
+
+        /* =================================================
+           INITIAL STATE
+        ================================================= */
+
+        updateSelection();
+
+        updateCharacterCount();
+
+
+        /* =================================================
+           AUTO FOCUS
+        ================================================= */
+
+        if (replyMessage) {
+
+            setTimeout(
+                function () {
+
+                    replyMessage.focus();
+
+                },
+                250
+            );
+
+        }
+
+
+        /* =================================================
+           SCROLL CONVERSATION TO BOTTOM
+        ================================================= */
+
+        const conversation =
+            document.querySelector(
+                ".conversation"
+            );
+
+
+        if (conversation) {
+
+            conversation.scrollTop =
+                conversation.scrollHeight;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

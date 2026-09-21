@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration - Jemea</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #222;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 520px;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .logo p {
+            margin-top: 8px;
+            color: #666;
+        }
+
+        h2 {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-top: 17px;
+            margin-bottom: 7px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            font-size: 15px;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #4b7f52;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 7px;
+            background: #4b7f52;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .error {
+            background: #ffe8e8;
+            color: #b00020;
+            padding: 12px;
+            border-radius: 7px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .bottom {
+            text-align: center;
+            margin-top: 22px;
+            color: #666;
+        }
+
+        .bottom a {
+            color: #4b7f52;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .bottom a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 500px) {
+            .card {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include "_flashes.html" %}
+
+<div class="page">
+
+    <div class="card">
+
+        <div class="logo">
+            <h1>Jemea</h1>
+            <p>Student Portal</p>
+        </div>
+
+        <h2>Create Student Account</h2>
+
+        {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+
+            <label for="name">Full Name</label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your full name"
+                required
+            >
+
+
+            <label for="email">Email Address</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+
+            <label for="department">Department</label>
+
+            <select
+                id="department"
+                name="department"
+                required
+            >
+                <option value="">Select Department</option>
+
+                <option>Freshman</option>
+
+                <option>Doctor of Veterinary Medicine</option>
+
+                <option>Agricultural Economics</option>
+
+                <option>
+                    Agri Business and Value Chain Management
+                </option>
+
+                <option>Horticulture</option>
+
+                <option>Animal Science</option>
+
+                <option>Natural Resource Management</option>
+
+                <option>Food Science</option>
+
+                <option>
+                    Food Science and Post Harvest Technology
+                </option>
+
+                <option>
+                    Rural Development and Agricultural Extension
+                </option>
+
+                <option>
+                    Agricultural Extension / Mid Career
+                </option>
+            </select>
+
+
+            <label for="year">Year</label>
+
+            <select
+                id="year"
+                name="year"
+                required
+            >
+                <option value="">Select Year</option>
+
+                <option>Freshman</option>
+
+                <option>Year 1</option>
+
+                <option>Year 2</option>
+
+                <option>Year 3</option>
+
+                <option>Year 4</option>
+
+                <option>Year 5</option>
+            </select>
+
+
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="At least 6 characters"
+                required
+            >
+
+
+            <label for="confirm_password">
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                id="confirm_password"
+                name="confirm_password"
+                placeholder="Enter password again"
+                required
+            >
+
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="bottom">
+
+            Already have an account?
+
+            <a href="{{ url_for('student_login') }}">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

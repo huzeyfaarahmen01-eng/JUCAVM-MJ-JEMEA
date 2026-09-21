@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Check Submission Status - Jemea</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================= */
+
+        nav {
+            background: white;
+            border-bottom: 1px solid #ddd;
+
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #222;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+
+            margin: 50px auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #777;
+        }
+
+        /* =========================
+           SEARCH CARD
+        ========================= */
+
+        .search-card {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 12px;
+
+            border: 1px solid #ddd;
+
+            margin-bottom: 25px;
+        }
+
+        .search-card label {
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-form input {
+            flex: 1;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+        }
+
+        .search-form button {
+            padding: 13px 22px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #222;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            opacity: 0.85;
+        }
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error {
+            background: #f8d7da;
+
+            color: #842029;
+
+            border: 1px solid #f5c2c7;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            margin-bottom: 20px;
+        }
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        .result {
+            background: white;
+
+            border: 1px solid #ddd;
+
+            border-radius: 12px;
+
+            padding: 25px;
+        }
+
+        .student-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 20px;
+
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .student-name {
+            font-size: 24px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+        .student-email {
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+        .status-new {
+            background: #fff3cd;
+
+            color: #856404;
+        }
+
+        .status-read {
+            background: #cfe2ff;
+
+            color: #084298;
+        }
+
+        .status-replied {
+            background: #d1e7dd;
+
+            color: #0f5132;
+        }
+
+        /* =========================
+           INFORMATION
+        ========================= */
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-top: 25px;
+        }
+
+        .info {
+            background: #f8f9fa;
+
+            padding: 15px;
+
+            border-radius: 8px;
+        }
+
+        .info-label {
+            display: block;
+
+            color: #777;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+            margin-bottom: 6px;
+        }
+
+        .info-value {
+            font-size: 14px;
+
+            word-break: break-word;
+        }
+
+        /* =========================
+           IDEA
+        ========================= */
+
+        .idea-box {
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background: #fafafa;
+
+            border: 1px solid #eee;
+
+            border-radius: 9px;
+        }
+
+        .idea-box h3 {
+            font-size: 16px;
+
+            margin-bottom: 10px;
+        }
+
+        .idea-box p {
+            line-height: 1.7;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+        }
+
+        /* =========================
+           REPLY
+        ========================= */
+
+        .reply-box {
+            margin-top: 20px;
+
+            padding: 20px;
+
+            background: #f0f8f4;
+
+            border: 1px solid #c9e6d5;
+
+            border-radius: 9px;
+        }
+
+        .reply-box h3 {
+            font-size: 16px;
+
+            margin-bottom: 10px;
+        }
+
+        .reply-box p {
+            line-height: 1.7;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+        }
+
+        .waiting {
+            margin-top: 20px;
+
+            padding: 18px;
+
+            background: #fff8e1;
+
+            border: 1px solid #ffe082;
+
+            border-radius: 9px;
+
+            color: #795548;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 16px 5%;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .container {
+                width: 94%;
+
+                margin: 30px auto;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-form input,
+            .search-form button {
+                width: 100%;
+            }
+
+            .student-header {
+                flex-direction: column;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result,
+            .search-card {
+                padding: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+{% include "_flashes.html" %}
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<nav>
+
+    <a
+        href="{{ url_for('home') }}"
+        class="logo"
+    >
+      JUCAVM MJ  Jemea
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('about') }}">
+            About
+        </a>
+
+        <a href="{{ url_for('contact') }}">
+            Submit Idea
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="container">
+
+
+    <div class="page-header">
+
+        <h1>
+            Check Your Submission
+        </h1>
+
+        <p>
+            Enter the email address you used when submitting your idea.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         SEARCH
+    ========================= -->
+
+    <div class="search-card">
+
+        <form
+            method="POST"
+            action="{{ url_for('student_status') }}"
+            class="search-form"
+        >
+
+            <div style="flex: 1;">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    value="{{ email }}"
+                    required
+                >
+
+            </div>
+
+
+            <div style="display: flex; align-items: flex-end;">
+
+                <button type="submit">
+                    Check Status
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =========================
+         ERROR
+    ========================= -->
+
+    {% if error %}
+
+        <div class="error">
+
+            ❌ {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =========================
+         RESULT
+    ========================= -->
+
+    {% if message %}
+
+
+        <div class="result">
+
+
+            <!-- STUDENT -->
+
+            <div class="student-header">
+
+
+                <div>
+
+                    <div class="student-name">
+
+                        👤 {{ message[1] }}
+
+                    </div>
+
+
+                    <div class="student-email">
+
+                        📧 {{ message[2] }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div>
+
+                    {% if message[7] == "New" %}
+
+                        <span class="status status-new">
+
+                            🟡 New
+
+                        </span>
+
+
+                    {% elif message[7] == "Read" %}
+
+                        <span class="status status-read">
+
+                            🔵 Read
+
+                        </span>
+
+
+                    {% else %}
+
+                        <span class="status status-replied">
+
+                            🟢 Replied
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 INFORMATION
+            ========================= -->
+
+            <div class="info-grid">
+
+
+                <!-- DEPARTMENT -->
+
+                <div class="info">
+
+                    <span class="info-label">
+                        Department
+                    </span>
+
+                    <div class="info-value">
+
+                        🎓 {{ message[3] }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- YEAR -->
+
+                <div class="info">
+
+                    <span class="info-label">
+                        Year
+                    </span>
+
+                    <div class="info-value">
+
+                        📚 {{ message[4] }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMITTED -->
+
+                <div class="info">
+
+                    <span class="info-label">
+                        Submitted
+                    </span>
+
+                    <div class="info-value">
+
+                        📅 {{ message[6] }}
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 STUDENT IDEA
+            ========================= -->
+
+            <div class="idea-box">
+
+                <h3>
+                    💡 Your Idea
+                </h3>
+
+                <p>
+
+                    {{ message[5] }}
+
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 ADMIN REPLY
+            ========================= -->
+
+            {% if message[8] %}
+
+
+                <div class="reply-box">
+
+                    <h3>
+                        💬 Admin Reply
+                    </h3>
+
+                    <p>
+
+                        {{ message[8] }}
+
+                    </p>
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="waiting">
+
+                    ⏳ <strong>Waiting for a reply</strong>
+
+                    <p style="margin-top: 5px;">
+
+                        Your idea has been received.
+                        The Jemea team has not replied yet.
+
+                    </p>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+</body>
+
+</html>

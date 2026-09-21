@@ -1,0 +1,2326 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+    Conversation - Jemea
+</title>
+
+
+<style>
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+
+    body {
+
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+
+        background:
+            linear-gradient(
+                135deg,
+                #f0fdf4 0%,
+                #f8fafc 45%,
+                #eff6ff 100%
+            );
+
+        color: #1f2937;
+
+        min-height: 100vh;
+    }
+
+
+    /* =================================
+       NAVBAR
+    ================================= */
+
+    .navbar {
+
+        background:
+            rgba(255, 255, 255, 0.96);
+
+        backdrop-filter:
+            blur(10px);
+
+        border-bottom:
+            1px solid #e5e7eb;
+
+        padding:
+            16px 7%;
+
+        display:
+            flex;
+
+        justify-content:
+            space-between;
+
+        align-items:
+            center;
+
+        position:
+            sticky;
+
+        top:
+            0;
+
+        z-index:
+            100;
+    }
+
+
+    .logo {
+
+        font-size:
+            27px;
+
+        font-weight:
+            800;
+
+        color:
+            #166534;
+
+        text-decoration:
+            none;
+
+        letter-spacing:
+            -0.5px;
+    }
+
+
+    .nav-links {
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        gap:
+            10px;
+    }
+
+
+    .nav-links a {
+
+        text-decoration:
+            none;
+
+        padding:
+            10px 16px;
+
+        border-radius:
+            9px;
+
+        font-size:
+            14px;
+
+        font-weight:
+            700;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    .dashboard-btn {
+
+        color:
+            #166534;
+
+        background:
+            #dcfce7;
+    }
+
+
+    .dashboard-btn:hover {
+
+        background:
+            #bbf7d0;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    .logout-btn {
+
+        color:
+            white;
+
+        background:
+            #dc2626;
+    }
+
+
+    .logout-btn:hover {
+
+        background:
+            #b91c1c;
+
+        transform:
+            translateY(-1px);
+    }
+
+
+    /* =================================
+       MAIN
+    ================================= */
+
+    .container {
+
+        width:
+            92%;
+
+        max-width:
+            920px;
+
+        margin:
+            32px auto 50px;
+    }
+
+
+    /* =================================
+       BACK BUTTON
+    ================================= */
+
+    .back {
+
+        display:
+            inline-flex;
+
+        align-items:
+            center;
+
+        gap:
+            7px;
+
+        margin-bottom:
+            18px;
+
+        text-decoration:
+            none;
+
+        color:
+            #166534;
+
+        font-weight:
+            700;
+
+        font-size:
+            14px;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    .back:hover {
+
+        color:
+            #14532d;
+
+        transform:
+            translateX(-3px);
+    }
+
+
+    /* =================================
+       CONVERSATION HEADER
+    ================================= */
+
+    .conversation-header {
+
+        background:
+            white;
+
+        padding:
+            25px 28px;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius:
+            18px;
+
+        box-shadow:
+            0 8px 30px
+            rgba(0, 0, 0, 0.06);
+
+        margin-bottom:
+            18px;
+    }
+
+
+    .header-main {
+
+        display:
+            flex;
+
+        align-items:
+            flex-start;
+
+        gap:
+            15px;
+    }
+
+
+    .header-icon {
+
+        width:
+            52px;
+
+        height:
+            52px;
+
+        flex-shrink:
+            0;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        background:
+            #dcfce7;
+
+        border-radius:
+            14px;
+
+        font-size:
+            24px;
+    }
+
+
+    .header-content {
+
+        flex:
+            1;
+    }
+
+
+    .conversation-header h1 {
+
+        font-size:
+            27px;
+
+        color:
+            #111827;
+
+        margin-bottom:
+            6px;
+    }
+
+
+    .conversation-header p {
+
+        color:
+            #6b7280;
+
+        line-height:
+            1.6;
+
+        font-size:
+            14px;
+    }
+
+
+    /* =================================
+       STATUS
+    ================================= */
+
+    .status {
+
+        display:
+            inline-flex;
+
+        align-items:
+            center;
+
+        gap:
+            7px;
+
+        margin-top:
+            15px;
+
+        padding:
+            7px 13px;
+
+        border-radius:
+            30px;
+
+        background:
+            #f3f4f6;
+
+        color:
+            #374151;
+
+        font-size:
+            12px;
+
+        font-weight:
+            700;
+
+        border:
+            1px solid #e5e7eb;
+    }
+
+
+    .status::before {
+
+        content:
+            "";
+
+        width:
+            7px;
+
+        height:
+            7px;
+
+        border-radius:
+            50%;
+
+        background:
+            #6b7280;
+    }
+
+
+    .status-new {
+
+        background:
+            #eff6ff;
+
+        color:
+            #1d4ed8;
+
+        border-color:
+            #bfdbfe;
+    }
+
+
+    .status-new::before {
+
+        background:
+            #2563eb;
+    }
+
+
+    .status-read {
+
+        background:
+            #f3f4f6;
+
+        color:
+            #374151;
+
+        border-color:
+            #d1d5db;
+    }
+
+
+    .status-read::before {
+
+        background:
+            #6b7280;
+    }
+
+
+    .status-replied {
+
+        background:
+            #ecfdf5;
+
+        color:
+            #047857;
+
+        border-color:
+            #a7f3d0;
+    }
+
+
+    .status-replied::before {
+
+        background:
+            #10b981;
+    }
+
+
+    /* =================================
+       ORIGINAL SUBMISSION
+    ================================= */
+
+    .submission-context {
+
+        background:
+            rgba(255, 255, 255, 0.82);
+
+        border:
+            1px solid #dbeafe;
+
+        border-radius:
+            15px;
+
+        padding:
+            18px 20px;
+
+        margin-bottom:
+            18px;
+
+        box-shadow:
+            0 4px 18px
+            rgba(0, 0, 0, 0.04);
+    }
+
+
+    .context-title {
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        gap:
+            8px;
+
+        color:
+            #1e3a8a;
+
+        font-size:
+            13px;
+
+        font-weight:
+            800;
+
+        margin-bottom:
+            9px;
+    }
+
+
+    .context-message {
+
+        color:
+            #374151;
+
+        font-size:
+            13px;
+
+        line-height:
+            1.7;
+
+        white-space:
+            pre-wrap;
+
+        overflow-wrap:
+            anywhere;
+
+        background:
+            #f8fafc;
+
+        border-radius:
+            10px;
+
+        padding:
+            12px 14px;
+    }
+
+
+    .context-date {
+
+        margin-top:
+            9px;
+
+        font-size:
+            10px;
+
+        color:
+            #9ca3af;
+    }
+
+
+    /* =================================
+       CHAT AREA
+    ================================= */
+
+    .conversation {
+
+        background:
+            rgba(255, 255, 255, 0.60);
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius:
+            18px;
+
+        padding:
+            25px 22px;
+
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        gap:
+            18px;
+
+        margin-bottom:
+            18px;
+
+        min-height:
+            180px;
+    }
+
+
+    /* =================================
+       MESSAGE WRAPPER
+    ================================= */
+
+    .message-wrapper {
+
+        display:
+            flex;
+
+        width:
+            100%;
+    }
+
+
+    .student-wrapper {
+
+        justify-content:
+            flex-end;
+    }
+
+
+    .admin-wrapper {
+
+        justify-content:
+            flex-start;
+    }
+
+
+    /* =================================
+       MESSAGE BOX
+    ================================= */
+
+    .message-box {
+
+        max-width:
+            72%;
+
+        padding:
+            15px 17px;
+
+        border-radius:
+            17px;
+
+        position:
+            relative;
+
+        box-shadow:
+            0 4px 14px
+            rgba(0, 0, 0, 0.05);
+
+        animation:
+            messageAppear
+            0.25s ease;
+    }
+
+
+    @keyframes messageAppear {
+
+        from {
+
+            opacity:
+                0;
+
+            transform:
+                translateY(5px);
+        }
+
+        to {
+
+            opacity:
+                1;
+
+            transform:
+                translateY(0);
+        }
+    }
+
+
+    .student-message {
+
+        background:
+            #dcfce7;
+
+        border:
+            1px solid #bbf7d0;
+
+        border-bottom-right-radius:
+            5px;
+    }
+
+
+    .admin-message {
+
+        background:
+            white;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-bottom-left-radius:
+            5px;
+    }
+
+
+    /* =================================
+       MESSAGE HEADER
+    ================================= */
+
+    .message-header {
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        gap:
+            8px;
+
+        margin-bottom:
+            9px;
+    }
+
+
+    .avatar {
+
+        width:
+            30px;
+
+        height:
+            30px;
+
+        border-radius:
+            50%;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        font-size:
+            13px;
+
+        flex-shrink:
+            0;
+    }
+
+
+    .student-avatar {
+
+        background:
+            #bbf7d0;
+    }
+
+
+    .admin-avatar {
+
+        background:
+            #dbeafe;
+    }
+
+
+    .sender {
+
+        font-size:
+            13px;
+
+        font-weight:
+            800;
+    }
+
+
+    .student-message .sender {
+
+        color:
+            #166534;
+    }
+
+
+    .admin-message .sender {
+
+        color:
+            #1d4ed8;
+    }
+
+
+    .sender-label {
+
+        font-size:
+            10px;
+
+        font-weight:
+            600;
+
+        color:
+            #6b7280;
+
+        margin-left:
+            auto;
+    }
+
+
+    /* =================================
+       MESSAGE TEXT
+    ================================= */
+
+    .message-text {
+
+        line-height:
+            1.7;
+
+        white-space:
+            pre-wrap;
+
+        word-wrap:
+            break-word;
+
+        overflow-wrap:
+            anywhere;
+
+        font-size:
+            14px;
+
+        color:
+            #1f2937;
+    }
+
+
+    /* =================================
+       MESSAGE DATE
+    ================================= */
+
+    .message-date {
+
+        margin-top:
+            10px;
+
+        padding-top:
+            8px;
+
+        border-top:
+            1px solid
+            rgba(0, 0, 0, 0.06);
+
+        font-size:
+            10px;
+
+        color:
+            #6b7280;
+
+        text-align:
+            right;
+    }
+
+
+    .admin-message .message-date {
+
+        text-align:
+            left;
+    }
+
+
+    /* =================================
+       EMPTY CONVERSATION
+    ================================= */
+
+    .empty-conversation {
+
+        text-align:
+            center;
+
+        padding:
+            45px 20px;
+
+        color:
+            #6b7280;
+    }
+
+
+    .empty-icon {
+
+        width:
+            60px;
+
+        height:
+            60px;
+
+        margin:
+            0 auto 15px;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        border-radius:
+            50%;
+
+        background:
+            #dcfce7;
+
+        font-size:
+            27px;
+    }
+
+
+    .empty-conversation h3 {
+
+        color:
+            #374151;
+
+        margin-bottom:
+            6px;
+
+        font-size:
+            17px;
+    }
+
+
+    .empty-conversation p {
+
+        font-size:
+            13px;
+
+        line-height:
+            1.6;
+    }
+
+
+    /* =================================
+       CLEARED CONVERSATION
+    ================================= */
+
+    .cleared-notice {
+
+        display:
+            flex;
+
+        align-items:
+            flex-start;
+
+        gap:
+            11px;
+
+        background:
+            #fff7ed;
+
+        border:
+            1px solid #fed7aa;
+
+        color:
+            #9a3412;
+
+        border-radius:
+            12px;
+
+        padding:
+            13px 15px;
+
+        margin-bottom:
+            18px;
+
+        font-size:
+            12px;
+
+        line-height:
+            1.6;
+    }
+
+
+    .cleared-icon {
+
+        flex-shrink:
+            0;
+
+        font-size:
+            18px;
+    }
+
+
+    /* =================================
+       REPLY SECTION
+    ================================= */
+
+    .reply-section {
+
+        background:
+            white;
+
+        padding:
+            25px 28px;
+
+        border:
+            1px solid #e5e7eb;
+
+        border-radius:
+            18px;
+
+        box-shadow:
+            0 8px 30px
+            rgba(0, 0, 0, 0.06);
+    }
+
+
+    .reply-header {
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        gap:
+            12px;
+
+        margin-bottom:
+            7px;
+    }
+
+
+    .reply-icon {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        border-radius:
+            11px;
+
+        display:
+            flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        background:
+            #dcfce7;
+
+        font-size:
+            19px;
+    }
+
+
+    .reply-section h2 {
+
+        font-size:
+            19px;
+
+        color:
+            #111827;
+    }
+
+
+    .reply-section > p {
+
+        color:
+            #6b7280;
+
+        margin:
+            0 0 18px 52px;
+
+        font-size:
+            13px;
+
+        line-height:
+            1.5;
+    }
+
+
+    /* =================================
+       TEXTAREA
+    ================================= */
+
+    .textarea-wrapper {
+
+        position:
+            relative;
+    }
+
+
+    textarea {
+
+        width:
+            100%;
+
+        min-height:
+            125px;
+
+        max-height:
+            400px;
+
+        resize:
+            vertical;
+
+        padding:
+            15px 16px 40px;
+
+        border:
+            1px solid #d1d5db;
+
+        border-radius:
+            12px;
+
+        font-family:
+            inherit;
+
+        font-size:
+            14px;
+
+        line-height:
+            1.6;
+
+        color:
+            #1f2937;
+
+        background:
+            #f9fafb;
+
+        outline:
+            none;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    textarea::placeholder {
+
+        color:
+            #9ca3af;
+    }
+
+
+    textarea:focus {
+
+        background:
+            white;
+
+        border-color:
+            #166534;
+
+        box-shadow:
+            0 0 0 3px
+            rgba(22, 101, 52, 0.1);
+    }
+
+
+    textarea:disabled {
+
+        background:
+            #f3f4f6;
+
+        cursor:
+            not-allowed;
+    }
+
+
+    /* =================================
+       CHARACTER COUNTER
+    ================================= */
+
+    .char-counter {
+
+        position:
+            absolute;
+
+        right:
+            12px;
+
+        bottom:
+            10px;
+
+        font-size:
+            11px;
+
+        color:
+            #9ca3af;
+
+        pointer-events:
+            none;
+
+        transition:
+            color 0.2s ease;
+    }
+
+
+    .char-counter.warning {
+
+        color:
+            #d97706;
+
+        font-weight:
+            700;
+    }
+
+
+    .char-counter.danger {
+
+        color:
+            #dc2626;
+
+        font-weight:
+            800;
+    }
+
+
+    /* =================================
+       FORM FOOTER
+    ================================= */
+
+    .form-footer {
+
+        margin-top:
+            12px;
+
+        display:
+            flex;
+
+        justify-content:
+            space-between;
+
+        align-items:
+            center;
+
+        gap:
+            15px;
+    }
+
+
+    .form-hint {
+
+        font-size:
+            11px;
+
+        color:
+            #9ca3af;
+
+        line-height:
+            1.5;
+    }
+
+
+    /* =================================
+       SEND BUTTON
+    ================================= */
+
+    .send-btn {
+
+        border:
+            none;
+
+        background:
+            #166534;
+
+        color:
+            white;
+
+        padding:
+            12px 21px;
+
+        border-radius:
+            10px;
+
+        font-weight:
+            700;
+
+        cursor:
+            pointer;
+
+        font-size:
+            14px;
+
+        display:
+            inline-flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+        gap:
+            8px;
+
+        min-width:
+            145px;
+
+        transition:
+            0.2s ease;
+    }
+
+
+    .send-btn:hover {
+
+        background:
+            #14532d;
+
+        transform:
+            translateY(-1px);
+
+        box-shadow:
+            0 5px 14px
+            rgba(22, 101, 52, 0.2);
+    }
+
+
+    .send-btn:active {
+
+        transform:
+            translateY(0);
+    }
+
+
+    .send-btn:disabled {
+
+        background:
+            #9ca3af;
+
+        cursor:
+            not-allowed;
+
+        transform:
+            none;
+
+        box-shadow:
+            none;
+    }
+
+
+    .send-icon {
+
+        font-size:
+            15px;
+    }
+
+
+    /* =================================
+       MOBILE
+    ================================= */
+
+    @media (max-width: 650px) {
+
+        .navbar {
+
+            padding:
+                14px 5%;
+        }
+
+
+        .logo {
+
+            font-size:
+                23px;
+        }
+
+
+        .nav-links {
+
+            gap:
+                6px;
+        }
+
+
+        .nav-links a {
+
+            padding:
+                8px 11px;
+
+            font-size:
+                12px;
+        }
+
+
+        .container {
+
+            width:
+                94%;
+
+            margin:
+                22px auto 35px;
+        }
+
+
+        .conversation-header {
+
+            padding:
+                20px;
+
+            border-radius:
+                15px;
+        }
+
+
+        .header-main {
+
+            gap:
+                11px;
+        }
+
+
+        .header-icon {
+
+            width:
+                45px;
+
+            height:
+                45px;
+
+            font-size:
+                20px;
+        }
+
+
+        .conversation-header h1 {
+
+            font-size:
+                23px;
+        }
+
+
+        .conversation-header p {
+
+            font-size:
+                13px;
+        }
+
+
+        .submission-context {
+
+            padding:
+                15px;
+
+            border-radius:
+                13px;
+        }
+
+
+        .conversation {
+
+            padding:
+                18px 10px;
+
+            gap:
+                14px;
+
+            border-radius:
+                15px;
+        }
+
+
+        .message-box {
+
+            max-width:
+                88%;
+
+            padding:
+                13px 14px;
+        }
+
+
+        .message-text {
+
+            font-size:
+                13px;
+
+            line-height:
+                1.6;
+        }
+
+
+        .reply-section {
+
+            padding:
+                21px;
+
+            border-radius:
+                15px;
+        }
+
+
+        .reply-section > p {
+
+            margin-left:
+                0;
+
+            margin-top:
+                8px;
+        }
+
+
+        .form-footer {
+
+            align-items:
+                stretch;
+
+            flex-direction:
+                column;
+        }
+
+
+        .form-hint {
+
+            display:
+                none;
+        }
+
+
+        .send-btn {
+
+            width:
+                100%;
+        }
+
+    }
+
+
+    /* =================================
+       VERY SMALL SCREENS
+    ================================= */
+
+    @media (max-width: 400px) {
+
+        .nav-links .dashboard-btn {
+
+            font-size:
+                0;
+        }
+
+
+        .nav-links .dashboard-btn::before {
+
+            content:
+                "🏠";
+
+            font-size:
+                14px;
+        }
+
+
+        .message-box {
+
+            max-width:
+                92%;
+        }
+
+
+        .sender-label {
+
+            display:
+                none;
+        }
+
+
+        .conversation-header h1 {
+
+            font-size:
+                21px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+{% include "_flashes.html" %}
+
+
+<!-- =================================
+     NAVBAR
+================================= -->
+
+<nav class="navbar">
+
+    <a
+        href="{{ url_for('student_dashboard') }}"
+        class="logo"
+    >
+        Jemea
+    </a>
+
+
+    <div class="nav-links">
+
+        <a
+            href="{{ url_for('student_dashboard') }}"
+            class="dashboard-btn"
+        >
+            Dashboard
+        </a>
+
+
+        <a
+            href="{{ url_for('student_logout') }}"
+            class="logout-btn"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =================================
+     MAIN
+================================= -->
+
+<main class="container">
+
+
+    <a
+        href="{{ url_for('student_dashboard') }}"
+        class="back"
+    >
+        ← Back to Dashboard
+    </a>
+
+
+    <!-- =================================
+         CONVERSATION HEADER
+    ================================= -->
+
+    <section class="conversation-header">
+
+        <div class="header-main">
+
+            <div class="header-icon">
+                💬
+            </div>
+
+
+            <div class="header-content">
+
+                <h1>
+                    Conversation
+                </h1>
+
+
+                <p>
+                    Continue your conversation with
+                    the Jemea team. You can send
+                    additional questions or information
+                    here.
+                </p>
+
+
+                {% if submission[7] == "New" %}
+
+                    <span class="status status-new">
+
+                        Status:
+                        {{ submission[7] }}
+
+                    </span>
+
+                {% elif submission[7] == "Read" %}
+
+                    <span class="status status-read">
+
+                        Status:
+                        {{ submission[7] }}
+
+                    </span>
+
+                {% elif submission[7] == "Replied" %}
+
+                    <span class="status status-replied">
+
+                        Status:
+                        {{ submission[7] }}
+
+                    </span>
+
+                {% else %}
+
+                    <span class="status">
+
+                        Status:
+                        {{ submission[7] }}
+
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         ORIGINAL SUBMISSION
+    ================================= -->
+
+    <section class="submission-context">
+
+        <div class="context-title">
+            📝 Your Original Submission
+        </div>
+
+
+        <div class="context-message">
+            {{ submission[5] }}
+        </div>
+
+
+        <div class="context-date">
+
+            Submitted:
+            {{ submission[4] }}
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+         CONVERSATION
+    ================================= -->
+
+    <section class="conversation">
+
+        {% if conversation %}
+
+            {% for item in conversation %}
+
+                {% if item[2] == "student" %}
+
+                    <!-- =========================
+                         STUDENT MESSAGE
+                    ========================== -->
+
+                    <div
+                        class="message-wrapper student-wrapper"
+                    >
+
+                        <div
+                            class="message-box student-message"
+                        >
+
+                            <div class="message-header">
+
+                                <div
+                                    class="avatar student-avatar"
+                                >
+                                    👤
+                                </div>
+
+
+                                <div class="sender">
+
+                                    {{ item[3] }}
+
+                                </div>
+
+
+                                <div class="sender-label">
+
+                                    You
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="message-text">
+
+                                {{ item[4] }}
+
+                            </div>
+
+
+                            <div class="message-date">
+
+                                {{ item[5] }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                {% else %}
+
+                    <!-- =========================
+                         ADMIN MESSAGE
+                    ========================== -->
+
+                    <div
+                        class="message-wrapper admin-wrapper"
+                    >
+
+                        <div
+                            class="message-box admin-message"
+                        >
+
+                            <div class="message-header">
+
+                                <div
+                                    class="avatar admin-avatar"
+                                >
+                                    🏫
+                                </div>
+
+
+                                <div class="sender">
+
+                                    {{ item[3] }}
+
+                                </div>
+
+
+                                <div class="sender-label">
+
+                                    Jemea Team
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="message-text">
+
+                                {{ item[4] }}
+
+                            </div>
+
+
+                            <div class="message-date">
+
+                                {{ item[5] }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+        {% else %}
+
+            <!-- =========================
+                 EMPTY CONVERSATION
+            ========================== -->
+
+            <div class="empty-conversation">
+
+                <div class="empty-icon">
+                    💬
+                </div>
+
+
+                <h3>
+                    No messages yet
+                </h3>
+
+
+                <p>
+                    Start the conversation by
+                    sending a message below.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =================================
+         CLEARED NOTICE
+    ================================= -->
+
+    {% if submission[9] == 1 %}
+
+        <div class="cleared-notice">
+
+            <div class="cleared-icon">
+                ⚠️
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Conversation history was cleared.
+                </strong>
+
+                <br>
+
+                You can still send a new message
+                to continue communicating with
+                the Jemea team.
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =================================
+         FOLLOW-UP FORM
+    ================================= -->
+
+    <section class="reply-section">
+
+
+        <div class="reply-header">
+
+            <div class="reply-icon">
+                ✉️
+            </div>
+
+
+            <h2>
+                Continue Conversation
+            </h2>
+
+        </div>
+
+
+        <p>
+            Have another question or want to
+            add more information?
+        </p>
+
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'student_send_message',
+                message_id=submission[0]
+            ) }}"
+            id="messageForm"
+        >
+
+
+            <div class="textarea-wrapper">
+
+                <textarea
+                    name="message"
+                    id="messageInput"
+                    maxlength="5000"
+                    placeholder="Write your message here..."
+                    aria-label="Write your message"
+                    required
+                ></textarea>
+
+
+                <div
+                    class="char-counter"
+                    id="charCounter"
+                >
+                    0 / 5000
+                </div>
+
+            </div>
+
+
+            <div class="form-footer">
+
+                <div class="form-hint">
+
+                    Press Enter to send •
+                    Shift + Enter for a new line
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="send-btn"
+                    id="sendButton"
+                >
+
+                    <span class="send-icon">
+                        ➤
+                    </span>
+
+
+                    <span id="sendText">
+                        Send Message
+                    </span>
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+</main>
+<script>
+
+    const messageInput =
+        document.getElementById(
+            "messageInput"
+        );
+
+
+    const charCounter =
+        document.getElementById(
+            "charCounter"
+        );
+
+
+    const messageForm =
+        document.getElementById(
+            "messageForm"
+        );
+
+
+    const sendButton =
+        document.getElementById(
+            "sendButton"
+        );
+
+
+    const sendText =
+        document.getElementById(
+            "sendText"
+        );
+
+
+    const MAX_LENGTH = 5000;
+
+
+    /* =================================
+       CHARACTER COUNTER
+    ================================= */
+
+    function updateCharacterCounter() {
+
+        const length =
+            messageInput.value.length;
+
+
+        charCounter.textContent =
+            length +
+            " / " +
+            MAX_LENGTH;
+
+
+        charCounter.classList.remove(
+            "warning",
+            "danger"
+        );
+
+
+        if (
+            length >=
+            MAX_LENGTH * 0.9
+        ) {
+
+            charCounter.classList.add(
+                "danger"
+            );
+
+        }
+
+        else if (
+            length >=
+            MAX_LENGTH * 0.75
+        ) {
+
+            charCounter.classList.add(
+                "warning"
+            );
+
+        }
+
+    }
+
+
+    messageInput.addEventListener(
+        "input",
+        updateCharacterCounter
+    );
+
+
+    updateCharacterCounter();
+
+
+    /* =================================
+       FORM SUBMISSION
+    ================================= */
+
+    messageForm.addEventListener(
+        "submit",
+        function (event) {
+
+            const message =
+                messageInput.value.trim();
+
+
+            /*
+             * Stop empty messages
+             */
+
+            if (!message) {
+
+                event.preventDefault();
+
+                messageInput.focus();
+
+                return;
+
+            }
+
+
+            /*
+             * Stop messages over 5000 characters
+             */
+
+            if (
+                message.length >
+                MAX_LENGTH
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Your message is too long. " +
+                    "Please keep it within 5000 characters."
+                );
+
+                messageInput.focus();
+
+                return;
+
+            }
+
+
+            /*
+             * Keep the cleaned message.
+             */
+
+            messageInput.value =
+                message;
+
+
+            /*
+             * Prevent double submission.
+             */
+
+            if (
+                sendButton.disabled
+            ) {
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+
+            /*
+             * Disable the button,
+             * NOT the textarea.
+             *
+             * A disabled textarea is
+             * excluded from form data.
+             */
+
+            sendButton.disabled =
+                true;
+
+
+            /*
+             * Readonly textarea is still
+             * included when the form submits.
+             */
+
+            messageInput.readOnly =
+                true;
+
+
+            sendText.textContent =
+                "Sending...";
+
+        }
+    );
+
+
+    /* =================================
+       ENTER TO SEND
+    ================================= */
+
+    messageInput.addEventListener(
+        "keydown",
+        function (event) {
+
+            /*
+             * Enter = send
+             *
+             * Shift + Enter = new line
+             */
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+
+                /*
+                 * Do nothing if already sending.
+                 */
+
+                if (
+                    sendButton.disabled
+                ) {
+
+                    return;
+
+                }
+
+
+                const message =
+                    messageInput.value.trim();
+
+
+                /*
+                 * Do nothing for empty input.
+                 */
+
+                if (!message) {
+
+                    messageInput.focus();
+
+                    return;
+
+                }
+
+
+                /*
+                 * Check maximum length.
+                 */
+
+                if (
+                    message.length >
+                    MAX_LENGTH
+                ) {
+
+                    alert(
+                        "Your message is too long. " +
+                        "Please keep it within 5000 characters."
+                    );
+
+                    messageInput.focus();
+
+                    return;
+
+                }
+
+
+                /*
+                 * Clean the message.
+                 */
+
+                messageInput.value =
+                    message;
+
+
+                /*
+                 * Trigger the normal
+                 * form submission.
+                 */
+
+                sendButton.click();
+
+            }
+
+        }
+    );
+
+
+    /* =================================
+       AUTO FOCUS
+    ================================= */
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            if (
+                window.innerWidth > 650
+            ) {
+
+                messageInput.focus();
+
+            }
+
+        }
+
+    );
+
+</script>
+
+
+</body>
+
+</html>

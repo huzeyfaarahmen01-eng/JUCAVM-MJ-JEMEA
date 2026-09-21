@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Jemea</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        /* ==============================
+           NAVBAR
+        ============================== */
+
+        nav {
+            background: #0f5132;
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        nav .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav .links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==============================
+           MAIN
+        ============================== */
+
+        .container {
+            width: 90%;
+            max-width: 850px;
+            margin: 50px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            color: #0f5132;
+            margin-bottom: 10px;
+        }
+
+        .intro {
+            color: #6b7280;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* ==============================
+           ACCOUNT NOTICE
+        ============================== */
+
+        .account-notice {
+            background: #e8f5e9;
+            border-left: 5px solid #0f5132;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .account-notice strong {
+            color: #0f5132;
+        }
+
+        /* ==============================
+           FORM
+        ============================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #0f5132;
+        }
+
+        input[readonly] {
+            background: #f3f4f6;
+            color: #4b5563;
+            cursor: not-allowed;
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #0f5132;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0b3d26;
+        }
+
+        /* ==============================
+           MESSAGES
+        ============================== */
+
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 16px 20px;
+            }
+
+            nav .links {
+                gap: 12px;
+            }
+
+            .container {
+                width: 94%;
+                margin: 30px auto;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+    {% include "_flashes.html" %}
+
+    <!-- ==============================
+         NAVBAR
+    ============================== -->
+
+    <nav>
+
+        <a href="{{ url_for('home') }}" class="logo">
+            Jemea
+        </a>
+
+        <div class="links">
+
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('about') }}">
+                About
+            </a>
+
+            <a href="{{ url_for('contact') }}">
+                Contact
+            </a>
+
+            {% if student %}
+
+                <a href="{{ url_for('student_dashboard') }}">
+                    Dashboard
+                </a>
+
+                <a href="{{ url_for('student_logout') }}">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{{ url_for('student_login') }}">
+                    Student Login
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- ==============================
+         MAIN CONTENT
+    ============================== -->
+
+    <div class="container">
+
+        <div class="card">
+
+            <h1>
+                Share Your Idea
+            </h1>
+
+            <p class="intro">
+                Your ideas, suggestions, questions, and feedback
+                help Jemea improve and serve students better.
+            </p>
+
+
+            <!-- ==============================
+                 SUCCESS
+            ============================== -->
+
+            {% if success %}
+
+                <div class="success">
+                    {{ success }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- ==============================
+                 ERROR
+            ============================== -->
+
+            {% if error %}
+
+                <div class="error">
+                    {{ error }}
+                </div>
+
+            {% endif %}
+
+
+            <!-- ==============================
+                 LOGGED-IN STUDENT
+            ============================== -->
+
+            {% if student %}
+
+                <div class="account-notice">
+
+                    <strong>
+                        Student account detected
+                    </strong>
+
+                    <br>
+
+                    Your personal information has been
+                    automatically filled from your account.
+
+                </div>
+
+            {% endif %}
+
+
+            <!-- ==============================
+                 FORM
+            ============================== -->
+
+            <form method="POST">
+
+                <!-- NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ student[1] if student else '' }}"
+                        {% if student %}readonly{% endif %}
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ student[2] if student else '' }}"
+                        {% if student %}readonly{% endif %}
+                        required
+                    >
+
+                </div>
+
+
+                <!-- DEPARTMENT -->
+
+                <div class="form-group">
+
+                    <label for="department">
+                        Department
+                    </label>
+
+                    <input
+                        type="text"
+                        id="department"
+                        name="department"
+                        value="{{ student[3] if student else '' }}"
+                        {% if student %}readonly{% endif %}
+                        required
+                    >
+
+                </div>
+
+
+                <!-- YEAR -->
+
+                <div class="form-group">
+
+                    <label for="year">
+                        Year
+                    </label>
+
+                    <input
+                        type="text"
+                        id="year"
+                        name="year"
+                        value="{{ student[4] if student else '' }}"
+                        {% if student %}readonly{% endif %}
+                        required
+                    >
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div class="form-group">
+
+                    <label for="message">
+                        Your Idea / Message
+                    </label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your idea, suggestion, question, or feedback here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+
+                <button type="submit">
+                    Submit Idea
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
